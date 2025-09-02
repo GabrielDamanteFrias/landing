@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabriel Damante Frias - Desenvolvedor Front-End</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script>
+      // Habilita o dark mode por classe
+      tailwind.config = { darkMode: 'class' }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Animações de scroll */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 dark:bg-black dark:text-gray-200 transition-colors duration-300">
+
+    <!-- Botão WhatsApp Flutuante -->
+    <a href="https://wa.me/5514998811979" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-3.5 rounded-full shadow-lg z-20 transition-transform hover:scale-110">
+        <span class="sr-only">WhatsApp</span>
+        <i class="fa-brands fa-whatsapp text-4xl" aria-hidden="true"></i>
+    </a>
+
+    <!-- Navegação -->
+    <nav class="sticky top-0 bg-slate-100/80 dark:bg-black/70 backdrop-blur-sm shadow-sm z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#home" class="flex items-center">
+                <img src="./assets/Logo.png" alt="Logo GDF" class="h-20">
+            </a>
+            <div class="hidden md:flex items-center space-x-6" id="desktop-menu">
+                <a href="#sobre" class="text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Sobre</a>
+                <a href="#habilidades" class="text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Habilidades</a>
+                <a href="#experiencia" class="text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Experiência</a>
+                <a href="#orcamento" class="text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Orçamento</a>
+                <a href="#contato" class="text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Contato</a>
+            </div>
+            <div class="flex items-center">
+                <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-neutral-800" aria-label="Alternar tema">
+                    <!-- Ícone de Sol -->
+                    <svg class="w-6 h-6 text-slate-700 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <!-- Ícone de Lua -->
+                    <svg class="w-6 h-6 text-slate-300 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </button>
+                <!-- Botão Hamburger -->
+                <button id="mobile-menu-button" class="md:hidden p-2 ml-2 rounded-md hover:bg-slate-200 dark:hover:bg-neutral-800" aria-label="Abrir menu">
+                    <svg class="w-6 h-6 text-slate-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2">
+            <a href="#sobre" class="block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Sobre</a>
+            <a href="#habilidades" class="block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Habilidades</a>
+            <a href="#experiencia" class="block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Experiência</a>
+            <a href="#orcamento" class="block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Orçamento</a>
+            <a href="#contato" class="block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Contato</a>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-6 py-8 md:py-12">
+
+        <!-- Hero Section -->
+        <header id="home" class="text-center py-12 md:py-20 rounded-xl bg-slate-200 dark:bg-gradient-to-br dark:from-neutral-900 dark:to-slate-800">
+            <h1 class="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white">Gabriel Damante Frias</h1>
+            <p class="text-xl md:text-2xl text-indigo-600 dark:text-indigo-400 mt-2 h-8 md:h-10"><span id="typed-subtitle"></span></p>
+            <p class="max-w-2xl mx-auto mt-4 text-slate-600 dark:text-gray-400">
+                Tenho experiência em React Native, TypeScript, HTML, CSS, Tailwind e também crio automações RPA com Selenium.
+            </p>
+        </header>
+
+        <main class="space-y-16 md:space-y-24 mt-16 md:mt-24">
+            <!-- Sobre mim -->
+            <section id="sobre" class="scroll-mt-24 py-16 md:py-20 bg-slate-200 dark:bg-neutral-900 rounded-xl shadow-sm fade-in-section">
+                <div class="max-w-4xl mx-auto px-6 flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                    <img src="./assets/Gabriel.jpeg" alt="Foto de Gabriel Damante Frias" class="w-36 h-36 rounded-full object-cover shadow-md">
+                    <div class="text-center md:text-left">
+                        <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">Sobre mim</h2>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            Sou um desenvolvedor apaixonado por criar interfaces intuitivas e funcionais. Com um olhar atento aos detalhes, busco transformar ideias complexas em soluções elegantes e eficientes, sempre focado na melhor experiência para o usuário final.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Habilidades -->
+            <section id="habilidades" class="scroll-mt-24 py-16 md:py-20 bg-slate-200 dark:bg-neutral-900 rounded-xl shadow-sm fade-in-section">
+                <div class="max-w-5xl mx-auto px-6">
+                    <h2 class="text-3xl font-bold text-center text-slate-900 dark:text-white mb-12">Habilidades</h2>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-6 text-center">
+                        <!-- React Native -->
+                        <div class="bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
+                            <i class="devicon-react-original colored text-5xl"></i>
+                            <p class="font-semibold text-slate-800 dark:text-gray-200">React Native</p>
+                        </div>
+                        <!-- TypeScript -->
+                        <div class="bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
+                            <i class="devicon-typescript-plain colored text-5xl"></i>
+                            <p class="font-semibold text-slate-800 dark:text-gray-200">TypeScript</p>
+                        </div>
+                        <!-- JavaScript -->
+                        <div class="bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
+                            <i class="devicon-javascript-plain colored text-5xl"></i>
+                            <p class="font-semibold text-slate-800 dark:text-gray-200">JavaScript</p>
+                        </div>
+                        <!-- HTML -->
+                        <div class="bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
+                            <i class="devicon-html5-plain colored text-5xl"></i>
+                            <p class="font-semibold text-slate-800 dark:text-gray-200">HTML</p>
+                        </div>
+                        <!-- CSS -->
+                        <div class="bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
+                            <i class="devicon-css3-plain colored text-5xl"></i>
+                            <p class="font-semibold text-slate-800 dark:text-gray-200">CSS</p>
+                        </div>
+                        <!-- Tailwind -->
+                        <div class="bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
+                            <i class="devicon-tailwindcss-plain colored text-5xl"></i>
+                            <p class="font-semibold text-slate-800 dark:text-gray-200">Tailwind</p>
+                        </div>
+                        <!-- Selenium -->
+                        <div class="bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
+                            <i class="devicon-selenium-original colored text-5xl"></i>
+                            <p class="font-semibold text-slate-800 dark:text-gray-200">Selenium</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Experiência -->
+            <section id="experiencia" class="scroll-mt-24 py-16 md:py-20 bg-slate-200 dark:bg-neutral-900 rounded-xl shadow-sm fade-in-section">
+                <div class="max-w-4xl mx-auto px-6">
+                    <h2 class="text-3xl font-bold text-center text-slate-900 dark:text-white mb-12">Experiência Profissional</h2>
+                    <div class="relative border-l-2 border-indigo-300 dark:border-blue-800 ml-4">
+                        <!-- Item Experiência 1 -->
+                        <div class="mb-10 ml-8">
+                            <span class="absolute flex items-center justify-center w-8 h-8 bg-indigo-500 rounded-full -left-4 ring-4 ring-slate-50 dark:ring-neutral-900 dark:bg-blue-900"></span>
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Desenvolvedor Front-End</h3>
+                            <p class="text-sm font-medium text-slate-600 dark:text-slate-400">Next Generation | Jun 2025 - Presente</p>
+                            <p class="mt-2 text-slate-700 dark:text-slate-400">Responsável pelo desenvolvimento e manutenção de aplicações web responsivas utilizando React, TypeScript e TailWind.</p>
+                        </div>
+                        <!-- Item Experiência 2 -->
+                        <div class="mb-10 ml-8">
+                            <span class="absolute flex items-center justify-center w-8 h-8 bg-indigo-500 rounded-full -left-4 ring-4 ring-slate-50 dark:ring-neutral-900 dark:bg-blue-900"></span>
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Desenvolvedor RPA</h3>
+                            <p class="text-sm font-medium text-slate-600 dark:text-slate-400">Next Generation | Mar 2025 - Jun 2025 </p>
+                            <p class="mt-2 text-slate-700 dark:text-slate-400">Criação de robôs para automação de processos (RPA) com Selenium e Python, otimizando tarefas repetitivas.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projetos -->
+            <!-- <section id="projetos" class="scroll-mt-24 py-16 md:py-20 bg-slate-200 dark:bg-neutral-900 rounded-xl shadow-sm fade-in-section overflow-hidden">
+                <div class="max-w-6xl mx-auto px-6">
+                    <h2 class="text-3xl font-bold text-center text-slate-900 dark:text-white mb-12">Projetos em Destaque</h2>
+                    <div class="relative">
+                        <div id="carousel" class="flex transition-transform duration-500 ease-out"> -->
+                            <!-- Projeto 1 -->
+                            <!-- <div class="w-full flex-shrink-0 px-4">
+                                <div class="bg-white dark:bg-neutral-800 rounded-xl overflow-hidden shadow-lg">
+                                    <div class="aspect-video bg-slate-300 dark:bg-neutral-700">
+                                        <img src="https://via.placeholder.com/800x450" alt="Projeto 1" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="p-6">
+                                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">App de Delivery</h3>
+                                        <p class="text-slate-600 dark:text-slate-400 mb-4">Aplicativo mobile desenvolvido com React Native para uma rede de restaurantes, com sistema de pedidos em tempo real.</p>
+                                        <div class="flex flex-wrap gap-2 mb-4">
+                                            <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 rounded-full text-sm">React Native</span>
+                                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-full text-sm">TypeScript</span>
+                                            <span class="px-3 py-1 bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 rounded-full text-sm">Node.js</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <!-- Projeto 2 -->
+                            <!-- <div class="w-full flex-shrink-0 px-4">
+                                <div class="bg-white dark:bg-neutral-800 rounded-xl overflow-hidden shadow-lg">
+                                    <div class="aspect-video bg-slate-300 dark:bg-neutral-700">
+                                        <img src="https://via.placeholder.com/800x450" alt="Projeto 2" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="p-6">
+                                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">E-commerce Dashboard</h3>
+                                        <p class="text-slate-600 dark:text-slate-400 mb-4">Dashboard administrativo completo para gerenciamento de produtos, pedidos e clientes.</p>
+                                        <div class="flex flex-wrap gap-2 mb-4">
+                                            <span class="px-3 py-1 bg-cyan-100 dark:bg-cyan-900/50 text-cyan-600 dark:text-cyan-400 rounded-full text-sm">React</span>
+                                            <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400 rounded-full text-sm">Tailwind</span>
+                                            <span class="px-3 py-1 bg-orange-100 dark:bg-orange-900/50 text-orange-600 dark:text-orange-400 rounded-full text-sm">Firebase</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <!-- Projeto 3 -->
+                            <!-- <div class="w-full flex-shrink-0 px-4">
+                                <div class="bg-white dark:bg-neutral-800 rounded-xl overflow-hidden shadow-lg">
+                                    <div class="aspect-video bg-slate-300 dark:bg-neutral-700">
+                                        <img src="https://via.placeholder.com/800x450" alt="Projeto 3" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="p-6">
+                                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Automação de Relatórios</h3>
+                                        <p class="text-slate-600 dark:text-slate-400 mb-4">Sistema RPA para automatização de geração e envio de relatórios financeiros diários.</p>
+                                        <div class="flex flex-wrap gap-2 mb-4">
+                                            <span class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/50 text-yellow-600 dark:text-yellow-400 rounded-full text-sm">Python</span>
+                                            <span class="px-3 py-1 bg-red-100 dark:bg-red-900/50 text-red-600 dark:text-red-400 rounded-full text-sm">Selenium</span>
+                                            <span class="px-3 py-1 bg-teal-100 dark:bg-teal-900/50 text-teal-600 dark:text-teal-400 rounded-full text-sm">Pandas</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                        <!-- </div> -->
+                        
+                        <!-- Controles do Carousel -->
+                        <!-- <button id="prevBtn" class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-neutral-800/80 text-slate-700 dark:text-white p-3 rounded-r-lg shadow-lg backdrop-blur-sm hover:bg-white dark:hover:bg-neutral-800 transition-all">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                        </button>
+                        <button id="nextBtn" class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-neutral-800/80 text-slate-700 dark:text-white p-3 rounded-l-lg shadow-lg backdrop-blur-sm hover:bg-white dark:hover:bg-neutral-800 transition-all">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button> -->
+
+                        <!-- Indicadores do Carousel -->
+                        <!-- <div class="flex justify-center mt-6 space-x-2">
+                            <button class="w-2.5 h-2.5 rounded-full bg-indigo-600 dark:bg-indigo-500" data-index="0"></button>
+                            <button class="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-neutral-700" data-index="1"></button>
+                            <button class="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-neutral-700" data-index="2"></button>
+                        </div>
+                    </div>
+                </div>
+            </section> -->
+
+            <!-- Orçamento -->
+            <section id="orcamento" class="scroll-mt-24 py-16 md:py-20 bg-slate-200 dark:bg-neutral-900 rounded-xl shadow-sm fade-in-section">
+                <div class="max-w-4xl mx-auto px-6">
+                    <h2 class="text-3xl font-bold text-center text-slate-900 dark:text-white mb-8">Solicite um Orçamento</h2>
+                    <div class="text-center space-y-6">
+                        <p class="text-lg text-slate-700 dark:text-gray-300 mb-8">
+                            Transforme sua ideia em realidade! Estou pronto para ajudar você a desenvolver:
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-6 mb-10">
+                            <div class="bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg">
+                                <i class="fas fa-mobile-alt text-3xl text-indigo-600 dark:text-indigo-400 mb-4"></i>
+                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Aplicativos Mobile</h3>
+                                <p class="text-slate-600 dark:text-gray-400">Desenvolvimento de aplicativos nativos com React Native</p>
+                            </div>
+                            <div class="bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg">
+                                <i class="fas fa-laptop-code text-3xl text-indigo-600 dark:text-indigo-400 mb-4"></i>
+                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Websites</h3>
+                                <p class="text-slate-600 dark:text-gray-400">Sites responsivos e modernos com as melhores tecnologias</p>
+                            </div>
+                            <div class="bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg">
+                                <i class="fas fa-rocket text-3xl text-indigo-600 dark:text-indigo-400 mb-4"></i>
+                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Landing Pages</h3>
+                                <p class="text-slate-600 dark:text-gray-400">Páginas otimizadas para conversão e resultados</p>
+                            </div>
+                            <div class="bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg">
+                                <i class="fas fa-robot text-3xl text-indigo-600 dark:text-indigo-400 mb-4"></i>
+                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Automação RPA</h3>
+                                <p class="text-slate-600 dark:text-gray-400">Automatize processos repetitivos e ganhe eficiência</p>
+                            </div>
+                        </div>
+                        <div class="bg-indigo-600 dark:bg-indigo-700 p-8 rounded-xl text-white">
+                            <h3 class="text-2xl font-bold mb-4">Vamos Conversar?</h3>
+                            <p class="mb-6">Entre em contato para discutirmos seu projeto e criar uma solução ideal para você!</p>
+                            <a href="https://wa.me/5514998811979?text=Ol%C3%A1%2C%20Gabriel!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento." 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               class="inline-flex items-center justify-center gap-2 bg-white text-indigo-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                                Solicitar Orçamento
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contato -->
+            <section id="contato" class="scroll-mt-24 py-16 md:py-20 bg-slate-200 dark:bg-neutral-900 rounded-xl shadow-sm fade-in-section">
+                <div class="max-w-2xl mx-auto px-6">
+                    <h2 class="text-3xl font-bold text-center text-slate-900 dark:text-white mb-10">Contato</h2>
+                    <div class="text-center space-y-6">
+                        <p class="text-slate-700 dark:text-gray-400">Fale comigo diretamente no WhatsApp.</p>
+                        <a href="https://wa.me/5514998811979?text=Ol%C3%A1%2C%20Gabriel!%20Vim%20pelo%20site." target="_blank" rel="noopener noreferrer"
+                           class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 rounded-md text-white bg-green-500 hover:bg-green-600 shadow-sm transition">
+                            <i class="fa-brands fa-whatsapp text-2xl" aria-hidden="true"></i>
+                            Iniciar conversa no WhatsApp
+                        </a>
+                        <p class="text-sm text-slate-600 dark:text-gray-400">Número: +55 (14) 99881-1979</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Rodapé -->
+        <footer class="text-center py-8 mt-16 border-t border-slate-200 dark:border-neutral-800">
+            <div class="flex justify-center items-center space-x-6">
+                <a href="#" class="text-slate-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-white">
+                    <span class="sr-only">GitHub</span>
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+                <a href="#" class="text-slate-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-white">
+                    <span class="sr-only">LinkedIn</span>
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                    </svg>
+                </a>
+            </div>
+            <p class="mt-4 text-sm text-slate-500 dark:text-gray-400">&copy; 2025 Gabriel Damante Frias. Todos os direitos reservados.</p>
+        </footer>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
