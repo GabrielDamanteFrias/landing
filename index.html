@@ -18,7 +18,9 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
         }
+        
         /* Animações de scroll */
         .fade-in-section {
             opacity: 0;
@@ -28,6 +30,33 @@
         .fade-in-section.is-visible {
             opacity: 1;
             transform: translateY(0);
+        }
+        
+        /* Efeitos de hover para links e botões */
+        a, button {
+            transition: all 0.3s ease;
+        }
+        
+        /* Animação de destaque para seções */
+        section {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        section:target {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            animation: highlight 2s ease;
+        }
+        
+        @keyframes highlight {
+            0% { background-color: rgba(79, 70, 229, 0.1); }
+            100% { background-color: transparent; }
+        }
+        
+        /* Melhorias para dispositivos móveis */
+        @media (max-width: 640px) {
+            .fade-in-section {
+                transform: translateY(10px);
+            }
         }
     </style>
     <style>
@@ -43,6 +72,249 @@
         .skill-tailwind { --skill-color-light: #0891b2; --skill-color-dark: #06B6D4; }
         .skill-next { --skill-color-light: #000000; --skill-color-dark: #ffffff; }
         .skill-selenium { --skill-color-light: #2f8a1f; --skill-color-dark: #43B02A; }
+        
+        /* Flip Cards */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+        
+        /* Learning Cards */
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+        .group:hover .group-hover\:rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+        .learning-card:hover .transform-style-3d {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        /* Terminal styling */
+        .terminal-container {
+            font-family: 'Courier New', monospace;
+        }
+        
+        /* CTA Button Animation */
+        .cta-button:hover::before {
+            transform: scaleX(1);
+        }
+        
+        /* Timeline styling */
+        .timeline-wrapper {
+            overflow-x: hidden;
+        }
+        .timeline-slider {
+            cursor: grab;
+        }
+        .timeline-slider:active {
+            cursor: grabbing;
+        }
+        .timeline-point::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 15px;
+            height: 15px;
+            background-color: rgba(99, 102, 241, 0.3);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            70% {
+                transform: translate(-50%, -50%) scale(2);
+                opacity: 0;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0;
+            }
+        }
+        
+        /* Chat styling */
+        .chat-messages {
+            scroll-behavior: smooth;
+        }
+        .chat-message {
+            transition: opacity 0.5s, transform 0.5s;
+            margin-bottom: 1rem;
+        }
+        .typing-indicator .animate-bounce {
+            animation: bounce 1s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-4px);
+            }
+        }
+        
+        /* Code Editor styling */
+        .code-tab {
+            transition: background-color 0.3s, color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .code-tab.active {
+            border-bottom: 2px solid #4f46e5;
+        }
+        .code-input {
+            resize: none;
+            font-family: 'Courier New', monospace;
+            line-height: 1.5;
+        }
+        #code-preview {
+            font-family: sans-serif;
+        }
+        
+        /* CTA Pulse Button */
+        .cta-pulse-button {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-pulse-effect {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            opacity: 0;
+        }
+        
+        .cta-pulse-button:hover .cta-pulse-effect {
+            animation: pulse-animation 1.5s ease-out infinite;
+        }
+        
+        @keyframes pulse-animation {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 0.5;
+            }
+            100% {
+                width: 200%;
+                height: 200%;
+                opacity: 0;
+            }
+        }
+        
+        /* Pixel Pet Mascot */
+        .pixel-pet-container {
+            image-rendering: pixelated;
+            transition: all 0.3s ease;
+        }
+        
+        .pixel-pet-container:hover {
+            transform: translateY(-5px);
+        }
+        
+        .pixel-pet-eye {
+            transition: all 0.2s ease;
+        }
+        
+        .pixel-pet-mouth {
+            transition: all 0.3s ease;
+        }
+        
+        .pixel-pet-happy .pixel-pet-mouth {
+            height: 3px;
+            border-radius: 0 0 100px 100px;
+            transform: translateY(1px);
+        }
+        
+        .pixel-pet-surprised .pixel-pet-mouth {
+            height: 4px;
+            width: 4px;
+            border-radius: 50%;
+        }
+        
+        .pixel-pet-wink .pixel-pet-eye:first-child {
+            height: 1px;
+            transform: translateY(1px);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .pixel-pet-floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Efeitos de hover melhorados */
+        .skill-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Animação para o terminal */
+        .terminal-container {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: glow 3s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); }
+            to { box-shadow: 0 10px 30px rgba(79, 70, 229, 0.3); }
+        }
+        
+        /* Efeitos para o menu de navegação */
+        nav {
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        nav.scrolled {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background-color: rgba(241, 245, 249, 0.9);
+        }
+        
+        .dark nav.scrolled {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        
+        /* Animações para botões */
+        .cta-button, .project-details-btn, #run-code, button[type="submit"] {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button:hover, .project-details-btn:hover, #run-code:hover, button[type="submit"]:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+        }
+        
+        .cta-button:active, .project-details-btn:active, #run-code:active, button[type="submit"]:active {
+            transform: translateY(-1px);
+        }
     </style>
 </head>
 <body class="bg-slate-100 text-slate-800 dark:bg-black dark:text-gray-200 transition-colors duration-300">
@@ -52,6 +324,27 @@
         <span class="sr-only">WhatsApp</span>
         <i class="fa-brands fa-whatsapp text-2xl" aria-hidden="true"></i>
     </a>
+    
+    <!-- Mascote Animado (Pixel Pet) -->
+    <div id="pixel-pet" class="fixed bottom-6 left-6 z-20 cursor-pointer select-none">
+        <div class="pixel-pet-container w-16 h-16 bg-indigo-600 dark:bg-indigo-500 rounded-lg shadow-lg overflow-hidden relative transition-all duration-300 hover:scale-110">
+            <!-- Rosto do Mascote -->
+            <div class="pixel-pet-face absolute inset-0 flex flex-col items-center justify-center">
+                <!-- Olhos -->
+                <div class="pixel-pet-eyes flex space-x-2 mb-1">
+                    <div class="w-2 h-2 bg-white rounded-full pixel-pet-eye"></div>
+                    <div class="w-2 h-2 bg-white rounded-full pixel-pet-eye"></div>
+                </div>
+                <!-- Boca -->
+                <div class="pixel-pet-mouth w-4 h-1 bg-white rounded-full mt-1"></div>
+            </div>
+        </div>
+        <!-- Balão de fala -->
+        <div id="pet-speech" class="absolute bottom-full left-0 mb-2 p-2 bg-white dark:bg-neutral-800 rounded-lg shadow-lg max-w-[150px] text-xs hidden transition-opacity duration-300">
+            <p class="text-slate-800 dark:text-white">Olá! Clique em mim para interagir!</p>
+            <div class="absolute bottom-0 left-4 transform translate-y-1/2 rotate-45 w-2 h-2 bg-white dark:bg-neutral-800"></div>
+        </div>
+    </div>
 
     <!-- Navegação -->
     <nav class="sticky top-0 bg-slate-100/80 dark:bg-black/70 backdrop-blur-sm shadow-sm z-10">
@@ -62,7 +355,11 @@
             <div class="hidden md:flex items-center space-x-6" id="desktop-menu">
                 <a href="#sobre" class="text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Sobre</a>
                 <a href="#habilidades" class="text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Habilidades</a>
+                <a href="#learning" class="text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Aprendendo</a>
                 <a href="#experiencia" class="text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Experiência</a>
+                <a href="#projetos" class="text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Projetos</a>
+                <a href="#code-playground" class="text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Playground</a>
+                <a href="#testimonials" class="text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Depoimentos</a>
                 <a href="#orcamento" class="text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Orçamento</a>
                 <a href="#contato" class="text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Contato</a>
             </div>
@@ -83,7 +380,11 @@
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2">
             <a href="#sobre" class="block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Sobre</a>
             <a href="#habilidades" class="block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Habilidades</a>
+            <a href="#learning" class="block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Aprendendo</a>
             <a href="#experiencia" class="block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Experiência</a>
+            <a href="#projetos" class="block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Projetos</a>
+            <a href="#code-playground" class="block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Playground</a>
+            <a href="#testimonials" class="block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Depoimentos</a>
             <a href="#orcamento" class="block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Orçamento</a>
             <a href="#contato" class="block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Contato</a>
         </div>
@@ -92,24 +393,147 @@
     <div class="container mx-auto px-6 py-8 md:py-12">
 
         <!-- Hero Section -->
-        <header id="home" class="text-center py-12 md:py-20 rounded-xl bg-slate-200 dark:bg-gradient-to-br dark:from-neutral-900 dark:to-slate-800">
-            <h1 class="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white">Gabriel Damante Frias</h1>
-            <p class="text-xl md:text-2xl text-indigo-600 dark:text-indigo-400 mt-2 h-8 md:h-10"><span id="typed-subtitle"></span></p>
-            <p class="max-w-2xl mx-auto mt-4 text-slate-600 dark:text-gray-400">
-                Tenho experiência em React Native, TypeScript, HTML, CSS, Tailwind e também crio automações RPA com Selenium.
-            </p>
+        <header id="home" class="terminal-container text-center py-12 md:py-20 rounded-xl bg-black/90 max-w-4xl mx-auto p-6 shadow-lg min-h-[400px] md:min-h-[500px] flex flex-col relative overflow-hidden">
+                <div class="terminal-header flex items-center mb-4">
+                    <div class="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    <div class="text-gray-400 text-xs ml-4">terminal@gabrielfrias:~</div>
+                </div>
+                <div class="terminal-content font-mono text-left flex-grow flex flex-col justify-center">
+                    <div class="flex mb-6">
+                        <span class="text-green-400 mr-2">$</span>
+                        <span id="terminal-text" class="text-white"></span>
+                    </div>
+                    <div class="mt-6 mb-4">
+                        <h1 class="text-4xl md:text-6xl font-bold text-white" id="terminal-name"></h1>
+                        <p class="text-2xl text-indigo-400 mt-4" id="terminal-role"></p>
+                    </div>
+                    <div class="mt-8 text-left">
+                        <div class="flex items-center mt-8">
+                            <a href="#contato" class="cta-button inline-block px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg relative overflow-hidden group">
+                                <span class="relative z-10">./start-conversation.sh</span>
+                                <span class="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </header>
 
         <main class="space-y-16 md:space-y-24 mt-16 md:mt-24">
             <!-- Sobre mim -->
             <section id="sobre" class="scroll-mt-24 py-16 md:py-20 bg-slate-200 dark:bg-neutral-900 rounded-xl shadow-sm fade-in-section">
-                <div class="max-w-4xl mx-auto px-6 flex flex-col md:flex-row items-center gap-8 md:gap-12">
-                    <img src="./assets/Gabriel.jpeg" alt="Foto de Gabriel Damante Frias" class="w-36 h-36 rounded-full object-cover shadow-md">
-                    <div class="text-center md:text-left">
-                        <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">Sobre mim</h2>
-                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-                            Sou um desenvolvedor apaixonado por criar interfaces intuitivas e funcionais. Com um olhar atento aos detalhes, busco transformar ideias complexas em soluções elegantes e eficientes, sempre focado na melhor experiência para o usuário final.
+                <div class="max-w-5xl mx-auto px-6">
+                    <div class="text-center mb-12">
+                        <img src="./assets/Gabriel.jpeg" alt="Foto de Gabriel Damante Frias" class="w-36 h-36 rounded-full object-cover shadow-md mx-auto">
+                        <h2 class="text-3xl font-bold text-slate-900 dark:text-white mt-4 mb-2">Sobre mim</h2>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto">
+                            Sou um desenvolvedor apaixonado por criar interfaces intuitivas e funcionais. Com um olhar atento aos detalhes, busco transformar ideias complexas em soluções elegantes e eficientes.
                         </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Card 1: Educação -->
+                        <div class="flip-card h-64 perspective-1000">
+                            <div class="flip-card-inner relative w-full h-full transition-transform duration-700 transform-style-3d">
+                                <!-- Frente do Card -->
+                                <div class="flip-card-front absolute w-full h-full bg-white dark:bg-neutral-800 rounded-xl shadow-md p-6 flex flex-col items-center justify-center backface-hidden">
+                                    <div class="text-indigo-600 dark:text-indigo-400 text-4xl mb-4">
+                                        <i class="fas fa-graduation-cap"></i>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">Educação</h3>
+                                </div>
+                                <!-- Verso do Card -->
+                                <div class="flip-card-back absolute w-full h-full bg-indigo-600 dark:bg-indigo-700 text-white rounded-xl shadow-md p-6 flex flex-col backface-hidden">
+                                    <h3 class="text-xl font-bold mb-2">Formação Acadêmica</h3>
+                                    <ul class="text-sm space-y-2">
+                                        <li class="flex items-start">
+                                            <span class="mr-2">📚</span>
+                                            <div>
+                                                <p class="font-semibold">Análise e Desenvolvimento de Sistemas</p>
+                                                <p>FATEC, 2023-2025</p>
+                                            </div>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="mr-2">🔍</span>
+                                            <div>
+                                                <p class="font-semibold">Especialização em Front-End</p>
+                                                <p>Alura, 2024</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Experiência -->
+                        <div class="flip-card h-64 perspective-1000">
+                            <div class="flip-card-inner relative w-full h-full transition-transform duration-700 transform-style-3d">
+                                <!-- Frente do Card -->
+                                <div class="flip-card-front absolute w-full h-full bg-white dark:bg-neutral-800 rounded-xl shadow-md p-6 flex flex-col items-center justify-center backface-hidden">
+                                    <div class="text-indigo-600 dark:text-indigo-400 text-4xl mb-4">
+                                        <i class="fas fa-briefcase"></i>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">Experiência</h3>
+                                </div>
+                                <!-- Verso do Card -->
+                                <div class="flip-card-back absolute w-full h-full bg-indigo-600 dark:bg-indigo-700 text-white rounded-xl shadow-md p-6 flex flex-col backface-hidden">
+                                    <h3 class="text-xl font-bold mb-2">Experiência Profissional</h3>
+                                    <ul class="text-sm space-y-2">
+                                        <li class="flex items-start">
+                                            <span class="mr-2">💻</span>
+                                            <div>
+                                                <p class="font-semibold">Desenvolvedor Front-End</p>
+                                                <p>Next Generation, 2025-Presente</p>
+                                            </div>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="mr-2">🤖</span>
+                                            <div>
+                                                <p class="font-semibold">Desenvolvedor RPA</p>
+                                                <p>Next Generation, 2025</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Hobbies -->
+                        <div class="flip-card h-64 perspective-1000">
+                            <div class="flip-card-inner relative w-full h-full transition-transform duration-700 transform-style-3d">
+                                <!-- Frente do Card -->
+                                <div class="flip-card-front absolute w-full h-full bg-white dark:bg-neutral-800 rounded-xl shadow-md p-6 flex flex-col items-center justify-center backface-hidden">
+                                    <div class="text-indigo-600 dark:text-indigo-400 text-4xl mb-4">
+                                        <i class="fas fa-gamepad"></i>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">Hobbies</h3>
+                                </div>
+                                <!-- Verso do Card -->
+                                <div class="flip-card-back absolute w-full h-full bg-indigo-600 dark:bg-indigo-700 text-white rounded-xl shadow-md p-6 flex flex-col backface-hidden">
+                                    <h3 class="text-xl font-bold mb-2">No Tempo Livre</h3>
+                                    <ul class="text-sm space-y-2">
+                                        <li class="flex items-start">
+                                            <span class="mr-2">🎮</span>
+                                            <p>Jogos de estratégia e RPG</p>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="mr-2">📚</span>
+                                            <p>Leitura de livros técnicos</p>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="mr-2">🏃</span>
+                                            <p>Corrida e atividades ao ar livre</p>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="mr-2">🎬</span>
+                                            <p>Filmes de ficção científica</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -117,155 +541,585 @@
             <!-- Habilidades -->
             <section id="habilidades" class="scroll-mt-24 py-16 md:py-20 bg-slate-200 dark:bg-neutral-900 rounded-xl shadow-sm fade-in-section">
                 <div class="max-w-5xl mx-auto px-6">
-                    <h2 class="text-3xl font-bold text-center text-slate-900 dark:text-white mb-12">Habilidades</h2>
+                    <h2 class="text-3xl font-bold text-center text-slate-900 dark:text-white mb-6">Habilidades</h2>
+                    <p class="text-center text-slate-600 dark:text-slate-400 mb-12 max-w-2xl mx-auto">Clique nos ícones para descobrir mais sobre cada tecnologia</p>
+                    
                     <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-6 text-center">
                         <!-- React Native -->
-                        <div class="skill-card skill-react bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
+                        <div class="skill-card skill-react bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3 cursor-pointer relative" data-skill="react">
                             <i class="devicon-react-original text-5xl"></i>
                             <span class="mt-2 text-current text-sm font-semibold">React Native</span>
+                            <div class="skill-tooltip opacity-0 invisible absolute -top-4 transform -translate-y-full left-1/2 -translate-x-1/2 w-64 bg-white dark:bg-neutral-800 p-4 rounded-lg shadow-lg z-10 transition-all duration-300">
+                                <div class="text-slate-800 dark:text-white text-sm">
+                                    <h4 class="font-bold mb-2">React Native</h4>
+                                    <p>Framework para desenvolvimento mobile que permite criar apps nativos para iOS e Android com JavaScript.</p>
+                                    <div class="mt-2 p-2 bg-slate-100 dark:bg-neutral-700 rounded text-xs font-mono text-left">
+                                        <code>import { View } from 'react-native';<br>const App = () => (<br>&nbsp;&nbsp;&lt;View&gt;Hello World&lt;/View&gt;<br>);</code>
+                                    </div>
+                                </div>
+                                <div class="tooltip-arrow absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-white dark:border-t-neutral-800"></div>
+                            </div>
                         </div>
+                        
                         <!-- TypeScript -->
-                        <div class="skill-card skill-typescript bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
+                        <div class="skill-card skill-typescript bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3 cursor-pointer relative" data-skill="typescript">
                             <i class="devicon-typescript-plain text-5xl"></i>
                             <span class="mt-2 text-current text-sm font-semibold">TypeScript</span>
+                            <div class="skill-tooltip opacity-0 invisible absolute -top-4 transform -translate-y-full left-1/2 -translate-x-1/2 w-64 bg-white dark:bg-neutral-800 p-4 rounded-lg shadow-lg z-10 transition-all duration-300">
+                                <div class="text-slate-800 dark:text-white text-sm">
+                                    <h4 class="font-bold mb-2">TypeScript</h4>
+                                    <p>Superset do JavaScript que adiciona tipagem estática opcional e outros recursos para melhorar a produtividade.</p>
+                                    <div class="mt-2 p-2 bg-slate-100 dark:bg-neutral-700 rounded text-xs font-mono text-left">
+                                        <code>interface User {<br>&nbsp;&nbsp;name: string;<br>&nbsp;&nbsp;age: number;<br>}</code>
+                                    </div>
+                                </div>
+                                <div class="tooltip-arrow absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-white dark:border-t-neutral-800"></div>
+                            </div>
                         </div>
+                        
                         <!-- JavaScript -->
-                        <div class="skill-card skill-javascript bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
+                        <div class="skill-card skill-javascript bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3 cursor-pointer relative" data-skill="javascript">
                             <i class="devicon-javascript-plain text-5xl"></i>
                             <span class="mt-2 text-current text-sm font-semibold">JavaScript</span>
+                            <div class="skill-tooltip opacity-0 invisible absolute -top-4 transform -translate-y-full left-1/2 -translate-x-1/2 w-64 bg-white dark:bg-neutral-800 p-4 rounded-lg shadow-lg z-10 transition-all duration-300">
+                                <div class="text-slate-800 dark:text-white text-sm">
+                                    <h4 class="font-bold mb-2">JavaScript</h4>
+                                    <p>Linguagem de programação versátil que permite adicionar interatividade a websites e criar aplicações web.</p>
+                                    <div class="mt-2 p-2 bg-slate-100 dark:bg-neutral-700 rounded text-xs font-mono text-left">
+                                        <code>const greeting = (name) => {<br>&nbsp;&nbsp;return `Hello, ${name}!`;<br>};</code>
+                                    </div>
+                                </div>
+                                <div class="tooltip-arrow absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-white dark:border-t-neutral-800"></div>
+                            </div>
                         </div>
+                        
                         <!-- HTML -->
-                        <div class="skill-card skill-html bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
+                        <div class="skill-card skill-html bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3 cursor-pointer relative" data-skill="html">
                             <i class="devicon-html5-plain text-5xl"></i>
                             <span class="mt-2 text-current text-sm font-semibold">HTML</span>
+                            <div class="skill-tooltip opacity-0 invisible absolute -top-4 transform -translate-y-full left-1/2 -translate-x-1/2 w-64 bg-white dark:bg-neutral-800 p-4 rounded-lg shadow-lg z-10 transition-all duration-300">
+                                <div class="text-slate-800 dark:text-white text-sm">
+                                    <h4 class="font-bold mb-2">HTML</h4>
+                                    <p>Linguagem de marcação para estruturar o conteúdo de páginas web, definindo elementos como títulos, parágrafos e links.</p>
+                                    <div class="mt-2 p-2 bg-slate-100 dark:bg-neutral-700 rounded text-xs font-mono text-left">
+                                        <code>&lt;section&gt;<br>&nbsp;&nbsp;&lt;h1&gt;Título&lt;/h1&gt;<br>&lt;/section&gt;</code>
+                                    </div>
+                                </div>
+                                <div class="tooltip-arrow absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-white dark:border-t-neutral-800"></div>
+                            </div>
                         </div>
+                        
                         <!-- CSS -->
-                        <div class="skill-card skill-css bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
+                        <div class="skill-card skill-css bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3 cursor-pointer relative" data-skill="css">
                             <i class="devicon-css3-plain text-5xl"></i>
                             <span class="mt-2 text-current text-sm font-semibold">CSS</span>
+                            <div class="skill-tooltip opacity-0 invisible absolute -top-4 transform -translate-y-full left-1/2 -translate-x-1/2 w-64 bg-white dark:bg-neutral-800 p-4 rounded-lg shadow-lg z-10 transition-all duration-300">
+                                <div class="text-slate-800 dark:text-white text-sm">
+                                    <h4 class="font-bold mb-2">CSS</h4>
+                                    <p>Linguagem de estilização que permite controlar a aparência visual dos elementos HTML em uma página web.</p>
+                                    <div class="mt-2 p-2 bg-slate-100 dark:bg-neutral-700 rounded text-xs font-mono text-left">
+                                        <code>.container {<br>&nbsp;&nbsp;display: flex;<br>&nbsp;&nbsp;gap: 1rem;<br>}</code>
+                                    </div>
+                                </div>
+                                <div class="tooltip-arrow absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-white dark:border-t-neutral-800"></div>
+                            </div>
                         </div>
+                        
                         <!-- Tailwind -->
-                        <div class="skill-card skill-tailwind bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
+                        <div class="skill-card skill-tailwind bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3 cursor-pointer relative" data-skill="tailwind">
                             <i class="devicon-tailwindcss-plain text-5xl"></i>
                             <span class="mt-2 text-current text-sm font-semibold">Tailwind</span>
+                            <div class="skill-tooltip opacity-0 invisible absolute -top-4 transform -translate-y-full left-1/2 -translate-x-1/2 w-64 bg-white dark:bg-neutral-800 p-4 rounded-lg shadow-lg z-10 transition-all duration-300">
+                                <div class="text-slate-800 dark:text-white text-sm">
+                                    <h4 class="font-bold mb-2">Tailwind CSS</h4>
+                                    <p>Framework CSS utilitário que permite construir designs personalizados diretamente no HTML usando classes predefinidas.</p>
+                                    <div class="mt-2 p-2 bg-slate-100 dark:bg-neutral-700 rounded text-xs font-mono text-left">
+                                        <code>&lt;div class="flex p-4 bg-blue-500 text-white rounded-lg"&gt;</code>
+                                    </div>
+                                </div>
+                                <div class="tooltip-arrow absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-white dark:border-t-neutral-800"></div>
+                            </div>
                         </div>
+                        
                         <!-- Next.js -->
-                        <div class="skill-card skill-next bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
+                        <div class="skill-card skill-next bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3 cursor-pointer relative" data-skill="next">
                             <i class="devicon-nextjs-original text-5xl"></i>
                             <span class="mt-2 text-current text-sm font-semibold">Next.js</span>
+                            <div class="skill-tooltip opacity-0 invisible absolute -top-4 transform -translate-y-full left-1/2 -translate-x-1/2 w-64 bg-white dark:bg-neutral-800 p-4 rounded-lg shadow-lg z-10 transition-all duration-300">
+                                <div class="text-slate-800 dark:text-white text-sm">
+                                    <h4 class="font-bold mb-2">Next.js</h4>
+                                    <p>Framework React para produção que oferece renderização híbrida, rotas, otimização e muito mais.</p>
+                                    <div class="mt-2 p-2 bg-slate-100 dark:bg-neutral-700 rounded text-xs font-mono text-left">
+                                        <code>// pages/index.js<br>export default function Home() {<br>&nbsp;&nbsp;return &lt;h1&gt;Hello&lt;/h1&gt;<br>}</code>
+                                    </div>
+                                </div>
+                                <div class="tooltip-arrow absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-white dark:border-t-neutral-800"></div>
+                            </div>
                         </div>
+                        
                         <!-- Selenium -->
-                        <div class="skill-card skill-selenium bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
+                        <div class="skill-card skill-selenium bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3 cursor-pointer relative" data-skill="selenium">
                             <i class="devicon-selenium-original text-5xl"></i>
                             <span class="mt-2 text-current text-sm font-semibold">Selenium</span>
+                            <div class="skill-tooltip opacity-0 invisible absolute -top-4 transform -translate-y-full left-1/2 -translate-x-1/2 w-64 bg-white dark:bg-neutral-800 p-4 rounded-lg shadow-lg z-10 transition-all duration-300">
+                                <div class="text-slate-800 dark:text-white text-sm">
+                                    <h4 class="font-bold mb-2">Selenium</h4>
+                                    <p>Framework de automação para controlar navegadores web, usado para testes e automação de tarefas repetitivas.</p>
+                                    <div class="mt-2 p-2 bg-slate-100 dark:bg-neutral-700 rounded text-xs font-mono text-left">
+                                        <code>driver = webdriver.Chrome()<br>driver.get("https://example.com")<br>element = driver.find_element(By.ID, "login")</code>
+                                    </div>
+                                </div>
+                                <div class="tooltip-arrow absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-white dark:border-t-neutral-800"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Currently Learning -->
+            <section id="learning" class="scroll-mt-24 py-16 md:py-20 bg-slate-200 dark:bg-neutral-900 rounded-xl shadow-sm fade-in-section mt-16 md:mt-24">
+                <div class="max-w-5xl mx-auto px-6">
+                    <h2 class="text-3xl font-bold text-center text-slate-900 dark:text-white mb-8">Atualmente Aprendendo</h2>
+                    <p class="text-center text-slate-600 dark:text-slate-400 mb-12 max-w-2xl mx-auto">Tecnologias e conceitos que estou estudando para expandir meu conhecimento</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Card 1 -->
+                        <div class="learning-card relative h-64 perspective-1000 group">
+                            <div class="absolute inset-0 transform-style-3d transition-transform duration-700 group-hover:rotate-y-180">
+                                <!-- Frente -->
+                                <div class="absolute inset-0 backface-hidden bg-gradient-to-br from-blue-500 to-indigo-600 dark:from-blue-600 dark:to-indigo-800 rounded-xl p-6 flex flex-col items-center justify-center text-white shadow-xl">
+                                    <div class="text-5xl mb-4">
+                                        <i class="fab fa-react"></i>
+                                    </div>
+                                    <h3 class="text-xl font-bold">React Native Avançado</h3>
+                                </div>
+                                <!-- Verso -->
+                                <div class="absolute inset-0 backface-hidden rotate-y-180 bg-white dark:bg-neutral-800 rounded-xl p-6 flex flex-col shadow-xl">
+                                    <h3 class="text-lg font-bold text-indigo-600 dark:text-indigo-400 mb-2">React Native Avançado</h3>
+                                    <p class="text-slate-700 dark:text-slate-300 text-sm flex-grow">
+                                        Aprofundando em animações complexas, otimização de performance e integração com recursos nativos para criar apps mobile de alta qualidade.
+                                    </p>
+                                    <div class="mt-4">
+                                        <span class="inline-block bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 text-xs px-2 py-1 rounded-full">Em progresso</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 2 -->
+                        <div class="learning-card relative h-64 perspective-1000 group">
+                            <div class="absolute inset-0 transform-style-3d transition-transform duration-700 group-hover:rotate-y-180">
+                                <!-- Frente -->
+                                <div class="absolute inset-0 backface-hidden bg-gradient-to-br from-emerald-500 to-green-600 dark:from-emerald-600 dark:to-green-800 rounded-xl p-6 flex flex-col items-center justify-center text-white shadow-xl">
+                                    <div class="text-5xl mb-4">
+                                        <i class="fas fa-server"></i>
+                                    </div>
+                                    <h3 class="text-xl font-bold">Node.js & Express</h3>
+                                </div>
+                                <!-- Verso -->
+                                <div class="absolute inset-0 backface-hidden rotate-y-180 bg-white dark:bg-neutral-800 rounded-xl p-6 flex flex-col shadow-xl">
+                                    <h3 class="text-lg font-bold text-emerald-600 dark:text-emerald-400 mb-2">Node.js & Express</h3>
+                                    <p class="text-slate-700 dark:text-slate-300 text-sm flex-grow">
+                                        Expandindo para desenvolvimento full-stack com Node.js para criar APIs robustas e escaláveis que complementam minhas habilidades de front-end.
+                                    </p>
+                                    <div class="mt-4">
+                                        <span class="inline-block bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 text-xs px-2 py-1 rounded-full">Em progresso</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 3 -->
+                        <div class="learning-card relative h-64 perspective-1000 group">
+                            <div class="absolute inset-0 transform-style-3d transition-transform duration-700 group-hover:rotate-y-180">
+                                <!-- Frente -->
+                                <div class="absolute inset-0 backface-hidden bg-gradient-to-br from-purple-500 to-fuchsia-600 dark:from-purple-600 dark:to-fuchsia-800 rounded-xl p-6 flex flex-col items-center justify-center text-white shadow-xl">
+                                    <div class="text-5xl mb-4">
+                                        <i class="fas fa-brain"></i>
+                                    </div>
+                                    <h3 class="text-xl font-bold">Machine Learning</h3>
+                                </div>
+                                <!-- Verso -->
+                                <div class="absolute inset-0 backface-hidden rotate-y-180 bg-white dark:bg-neutral-800 rounded-xl p-6 flex flex-col shadow-xl">
+                                    <h3 class="text-lg font-bold text-purple-600 dark:text-purple-400 mb-2">Machine Learning</h3>
+                                    <p class="text-slate-700 dark:text-slate-300 text-sm flex-grow">
+                                        Explorando os fundamentos de ML e sua aplicação em projetos web, especialmente para melhorar a experiência do usuário com recursos inteligentes.
+                                    </p>
+                                    <div class="mt-4">
+                                        <span class="inline-block bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-xs px-2 py-1 rounded-full">Iniciando</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Experiência -->
-            <section id="experiencia" class="scroll-mt-24 py-16 md:py-20 bg-slate-200 dark:bg-neutral-900 rounded-xl shadow-sm fade-in-section">
-                <div class="max-w-4xl mx-auto px-6">
-                    <h2 class="text-3xl font-bold text-center text-slate-900 dark:text-white mb-12">Experiência Profissional</h2>
-                    <div class="relative border-l-2 border-indigo-300 dark:border-blue-800 ml-4">
-                        <!-- Item Experiência 1 -->
-                        <div class="mb-10 ml-8">
-                            <span class="absolute flex items-center justify-center w-8 h-8 bg-indigo-500 rounded-full -left-4 ring-4 ring-slate-50 dark:ring-neutral-900 dark:bg-blue-900"></span>
-                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Desenvolvedor Front-End</h3>
-                            <p class="text-sm font-medium text-slate-600 dark:text-slate-400">Next Generation | Jun 2025 - Presente</p>
-                            <p class="mt-2 text-slate-700 dark:text-slate-400">Responsável pelo desenvolvimento e manutenção de aplicações web responsivas utilizando React, TypeScript e TailWind.</p>
+            <!-- Experiência - Timeline Horizontal -->
+            <section id="experiencia" class="scroll-mt-24 py-16 md:py-20 bg-slate-200 dark:bg-neutral-900 rounded-xl shadow-sm fade-in-section overflow-hidden">
+                <div class="max-w-6xl mx-auto px-6">
+                    <h2 class="text-3xl font-bold text-center text-slate-900 dark:text-white mb-8">Jornada Profissional</h2>
+                    <p class="text-center text-slate-600 dark:text-slate-400 mb-12 max-w-2xl mx-auto">Arraste para navegar ou use as setas para explorar minha trajetória profissional</p>
+                    
+                    <div class="timeline-container relative">
+                        <!-- Linha do tempo -->
+                        <div class="timeline-track-bg h-1 bg-slate-300 dark:bg-neutral-700 absolute top-16 left-0 right-0 z-0"></div>
+                        
+                        <!-- Botões de navegação -->
+                        <button id="timeline-prev" class="absolute left-0 top-14 z-10 bg-white dark:bg-neutral-800 text-slate-700 dark:text-white p-2 rounded-full shadow-lg hover:bg-slate-100 dark:hover:bg-neutral-700 transition-all">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                        </button>
+                        
+                        <button id="timeline-next" class="absolute right-0 top-14 z-10 bg-white dark:bg-neutral-800 text-slate-700 dark:text-white p-2 rounded-full shadow-lg hover:bg-slate-100 dark:hover:bg-neutral-700 transition-all">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+                        
+                        <!-- Conteúdo da timeline -->
+                        <div class="timeline-wrapper relative overflow-hidden">
+                            <div id="timeline-slider" class="timeline-slider flex transition-transform duration-500 ease-out cursor-grab">
+                                <!-- Item 1 -->
+                                <div class="timeline-item min-w-[280px] sm:min-w-[350px] px-4">
+                                    <div class="relative">
+                                        <div class="timeline-point absolute top-16 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5 h-5 bg-indigo-600 dark:bg-indigo-500 rounded-full z-10 shadow-md"></div>
+                                        <div class="timeline-date text-center mb-8 font-medium text-indigo-600 dark:text-indigo-400">Jun 2025 - Presente</div>
+                                        <div class="timeline-content bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-md">
+                                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Desenvolvedor Front-End</h3>
+                                            <p class="text-sm text-slate-600 dark:text-slate-400 mb-2">Next Generation</p>
+                                            <p class="text-slate-700 dark:text-slate-400">Responsável pelo desenvolvimento e manutenção de aplicações web responsivas utilizando React, TypeScript e TailWind.</p>
+                                            <div class="mt-4 flex flex-wrap gap-2">
+                                                <span class="px-2 py-1 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full text-xs">React</span>
+                                                <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full text-xs">TypeScript</span>
+                                                <span class="px-2 py-1 bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400 rounded-full text-xs">Tailwind</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Item 2 -->
+                                <div class="timeline-item min-w-[280px] sm:min-w-[350px] px-4">
+                                    <div class="relative">
+                                        <div class="timeline-point absolute top-16 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5 h-5 bg-indigo-600 dark:bg-indigo-500 rounded-full z-10 shadow-md"></div>
+                                        <div class="timeline-date text-center mb-8 font-medium text-indigo-600 dark:text-indigo-400">Mar 2025 - Jun 2025</div>
+                                        <div class="timeline-content bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-md">
+                                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Desenvolvedor RPA</h3>
+                                            <p class="text-sm text-slate-600 dark:text-slate-400 mb-2">Next Generation</p>
+                                            <p class="text-slate-700 dark:text-slate-400">Criação de robôs para automação de processos (RPA) com Selenium e Python, otimizando tarefas repetitivas.</p>
+                                            <div class="mt-4 flex flex-wrap gap-2">
+                                                <span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 rounded-full text-xs">Python</span>
+                                                <span class="px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-full text-xs">Selenium</span>
+                                                <span class="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full text-xs">Pandas</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Item 3 -->
+                                <div class="timeline-item min-w-[280px] sm:min-w-[350px] px-4">
+                                    <div class="relative">
+                                        <div class="timeline-point absolute top-16 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5 h-5 bg-indigo-600 dark:bg-indigo-500 rounded-full z-10 shadow-md"></div>
+                                        <div class="timeline-date text-center mb-8 font-medium text-indigo-600 dark:text-indigo-400">Jan 2025 - Mar 2025</div>
+                                        <div class="timeline-content bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-md">
+                                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Estágio em Desenvolvimento</h3>
+                                            <p class="text-sm text-slate-600 dark:text-slate-400 mb-2">TechSolutions</p>
+                                            <p class="text-slate-700 dark:text-slate-400">Suporte ao time de desenvolvimento em projetos web, aprendendo boas práticas e metodologias ágeis.</p>
+                                            <div class="mt-4 flex flex-wrap gap-2">
+                                                <span class="px-2 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded-full text-xs">HTML/CSS</span>
+                                                <span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 rounded-full text-xs">JavaScript</span>
+                                                <span class="px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-full text-xs">Git</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Item 4 -->
+                                <div class="timeline-item min-w-[280px] sm:min-w-[350px] px-4">
+                                    <div class="relative">
+                                        <div class="timeline-point absolute top-16 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5 h-5 bg-indigo-600 dark:bg-indigo-500 rounded-full z-10 shadow-md"></div>
+                                        <div class="timeline-date text-center mb-8 font-medium text-indigo-600 dark:text-indigo-400">2023 - 2025</div>
+                                        <div class="timeline-content bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-md">
+                                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Formação Acadêmica</h3>
+                                            <p class="text-sm text-slate-600 dark:text-slate-400 mb-2">FATEC</p>
+                                            <p class="text-slate-700 dark:text-slate-400">Análise e Desenvolvimento de Sistemas com foco em desenvolvimento web e mobile.</p>
+                                            <div class="mt-4 flex flex-wrap gap-2">
+                                                <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full text-xs">Programação</span>
+                                                <span class="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full text-xs">Banco de Dados</span>
+                                                <span class="px-2 py-1 bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400 rounded-full text-xs">UX/UI</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <!-- Item Experiência 2 -->
-                        <div class="mb-10 ml-8">
-                            <span class="absolute flex items-center justify-center w-8 h-8 bg-indigo-500 rounded-full -left-4 ring-4 ring-slate-50 dark:ring-neutral-900 dark:bg-blue-900"></span>
-                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Desenvolvedor RPA</h3>
-                            <p class="text-sm font-medium text-slate-600 dark:text-slate-400">Next Generation | Mar 2025 - Jun 2025 </p>
-                            <p class="mt-2 text-slate-700 dark:text-slate-400">Criação de robôs para automação de processos (RPA) com Selenium e Python, otimizando tarefas repetitivas.</p>
+                        
+                        <!-- Indicadores da timeline -->
+                        <div class="timeline-indicators flex justify-center mt-8 space-x-2">
+                            <button class="w-2.5 h-2.5 rounded-full bg-indigo-600 dark:bg-indigo-500" data-index="0"></button>
+                            <button class="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-neutral-700" data-index="1"></button>
+                            <button class="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-neutral-700" data-index="2"></button>
+                            <button class="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-neutral-700" data-index="3"></button>
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- Projetos -->
-            <!-- <section id="projetos" class="scroll-mt-24 py-16 md:py-20 bg-slate-200 dark:bg-neutral-900 rounded-xl shadow-sm fade-in-section overflow-hidden">
+            <section id="projetos" class="scroll-mt-24 py-16 md:py-20 bg-slate-200 dark:bg-neutral-900 rounded-xl shadow-sm fade-in-section overflow-hidden">
                 <div class="max-w-6xl mx-auto px-6">
                     <h2 class="text-3xl font-bold text-center text-slate-900 dark:text-white mb-12">Projetos em Destaque</h2>
-                    <div class="relative">
-                        <div id="carousel" class="flex transition-transform duration-500 ease-out"> -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             <!-- Projeto 1 -->
-                            <!-- <div class="w-full flex-shrink-0 px-4">
-                                <div class="bg-white dark:bg-neutral-800 rounded-xl overflow-hidden shadow-lg">
-                                    <div class="aspect-video bg-slate-300 dark:bg-neutral-700">
-                                        <img src="https://via.placeholder.com/800x450" alt="Projeto 1" class="w-full h-full object-cover">
+                        <div class="project-card bg-white dark:bg-neutral-800 rounded-xl overflow-hidden shadow-lg transition-all duration-500 hover:shadow-xl cursor-pointer group">
+                            <div class="aspect-video bg-slate-300 dark:bg-neutral-700 overflow-hidden">
+                                <img src="https://via.placeholder.com/800x450" alt="App de Delivery" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                                     </div>
                                     <div class="p-6">
                                         <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">App de Delivery</h3>
-                                        <p class="text-slate-600 dark:text-slate-400 mb-4">Aplicativo mobile desenvolvido com React Native para uma rede de restaurantes, com sistema de pedidos em tempo real.</p>
+                                <p class="text-slate-600 dark:text-slate-400 mb-4 line-clamp-2 group-hover:line-clamp-none transition-all duration-300">Aplicativo mobile desenvolvido com React Native para uma rede de restaurantes, com sistema de pedidos em tempo real.</p>
                                         <div class="flex flex-wrap gap-2 mb-4">
                                             <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 rounded-full text-sm">React Native</span>
                                             <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-full text-sm">TypeScript</span>
                                             <span class="px-3 py-1 bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 rounded-full text-sm">Node.js</span>
                                         </div>
+                                <button class="project-details-btn w-full py-2 mt-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md transition-colors" data-project="projeto1">Ver Detalhes</button>
                                     </div>
                                 </div>
-                            </div> -->
+                        
                             <!-- Projeto 2 -->
-                            <!-- <div class="w-full flex-shrink-0 px-4">
-                                <div class="bg-white dark:bg-neutral-800 rounded-xl overflow-hidden shadow-lg">
-                                    <div class="aspect-video bg-slate-300 dark:bg-neutral-700">
-                                        <img src="https://via.placeholder.com/800x450" alt="Projeto 2" class="w-full h-full object-cover">
+                        <div class="project-card bg-white dark:bg-neutral-800 rounded-xl overflow-hidden shadow-lg transition-all duration-500 hover:shadow-xl cursor-pointer group">
+                            <div class="aspect-video bg-slate-300 dark:bg-neutral-700 overflow-hidden">
+                                <img src="https://via.placeholder.com/800x450" alt="E-commerce Dashboard" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                                     </div>
                                     <div class="p-6">
                                         <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">E-commerce Dashboard</h3>
-                                        <p class="text-slate-600 dark:text-slate-400 mb-4">Dashboard administrativo completo para gerenciamento de produtos, pedidos e clientes.</p>
+                                <p class="text-slate-600 dark:text-slate-400 mb-4 line-clamp-2 group-hover:line-clamp-none transition-all duration-300">Dashboard administrativo completo para gerenciamento de produtos, pedidos e clientes.</p>
                                         <div class="flex flex-wrap gap-2 mb-4">
                                             <span class="px-3 py-1 bg-cyan-100 dark:bg-cyan-900/50 text-cyan-600 dark:text-cyan-400 rounded-full text-sm">React</span>
                                             <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400 rounded-full text-sm">Tailwind</span>
                                             <span class="px-3 py-1 bg-orange-100 dark:bg-orange-900/50 text-orange-600 dark:text-orange-400 rounded-full text-sm">Firebase</span>
                                         </div>
+                                <button class="project-details-btn w-full py-2 mt-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md transition-colors" data-project="projeto2">Ver Detalhes</button>
                                     </div>
                                 </div>
-                            </div> -->
+                        
                             <!-- Projeto 3 -->
-                            <!-- <div class="w-full flex-shrink-0 px-4">
-                                <div class="bg-white dark:bg-neutral-800 rounded-xl overflow-hidden shadow-lg">
-                                    <div class="aspect-video bg-slate-300 dark:bg-neutral-700">
-                                        <img src="https://via.placeholder.com/800x450" alt="Projeto 3" class="w-full h-full object-cover">
+                        <div class="project-card bg-white dark:bg-neutral-800 rounded-xl overflow-hidden shadow-lg transition-all duration-500 hover:shadow-xl cursor-pointer group">
+                            <div class="aspect-video bg-slate-300 dark:bg-neutral-700 overflow-hidden">
+                                <img src="https://via.placeholder.com/800x450" alt="Automação de Relatórios" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                                     </div>
                                     <div class="p-6">
                                         <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Automação de Relatórios</h3>
-                                        <p class="text-slate-600 dark:text-slate-400 mb-4">Sistema RPA para automatização de geração e envio de relatórios financeiros diários.</p>
+                                <p class="text-slate-600 dark:text-slate-400 mb-4 line-clamp-2 group-hover:line-clamp-none transition-all duration-300">Sistema RPA para automatização de geração e envio de relatórios financeiros diários.</p>
                                         <div class="flex flex-wrap gap-2 mb-4">
                                             <span class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/50 text-yellow-600 dark:text-yellow-400 rounded-full text-sm">Python</span>
                                             <span class="px-3 py-1 bg-red-100 dark:bg-red-900/50 text-red-600 dark:text-red-400 rounded-full text-sm">Selenium</span>
                                             <span class="px-3 py-1 bg-teal-100 dark:bg-teal-900/50 text-teal-600 dark:text-teal-400 rounded-full text-sm">Pandas</span>
+                                </div>
+                                <button class="project-details-btn w-full py-2 mt-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md transition-colors" data-project="projeto3">Ver Detalhes</button>
+                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div> -->
-                        <!-- </div> -->
-                        
-                        <!-- Controles do Carousel -->
-                        <!-- <button id="prevBtn" class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-neutral-800/80 text-slate-700 dark:text-white p-3 rounded-r-lg shadow-lg backdrop-blur-sm hover:bg-white dark:hover:bg-neutral-800 transition-all">
+                
+                <!-- Modal de Detalhes do Projeto -->
+                <div id="project-modal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+                    <div class="bg-white dark:bg-neutral-900 rounded-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+                        <div class="sticky top-0 bg-white dark:bg-neutral-900 p-4 flex justify-between items-center border-b border-gray-200 dark:border-gray-700">
+                            <h3 id="modal-title" class="text-2xl font-bold text-slate-900 dark:text-white"></h3>
+                            <button id="close-modal" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                             </svg>
                         </button>
-                        <button id="nextBtn" class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-neutral-800/80 text-slate-700 dark:text-white p-3 rounded-l-lg shadow-lg backdrop-blur-sm hover:bg-white dark:hover:bg-neutral-800 transition-all">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </div>
+                        <div class="p-6">
+                            <div id="modal-image" class="aspect-video bg-slate-300 dark:bg-neutral-700 rounded-lg mb-6 overflow-hidden">
+                                <img src="" alt="" class="w-full h-full object-cover">
+                            </div>
+                            
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Descrição</h4>
+                                    <p id="modal-description" class="text-slate-600 dark:text-slate-400"></p>
+                                </div>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div class="bg-slate-100 dark:bg-neutral-800 p-4 rounded-lg">
+                                        <h5 class="font-semibold text-slate-900 dark:text-white mb-2">Problema</h5>
+                                        <p id="modal-problem" class="text-slate-600 dark:text-slate-400 text-sm"></p>
+                                    </div>
+                                    <div class="bg-slate-100 dark:bg-neutral-800 p-4 rounded-lg">
+                                        <h5 class="font-semibold text-slate-900 dark:text-white mb-2">Solução</h5>
+                                        <p id="modal-solution" class="text-slate-600 dark:text-slate-400 text-sm"></p>
+                                    </div>
+                                    <div class="bg-slate-100 dark:bg-neutral-800 p-4 rounded-lg">
+                                        <h5 class="font-semibold text-slate-900 dark:text-white mb-2">Impacto</h5>
+                                        <p id="modal-impact" class="text-slate-600 dark:text-slate-400 text-sm"></p>
+                                    </div>
+                                </div>
+                                
+                                <div id="modal-technologies" class="flex flex-wrap gap-2"></div>
+                                
+                                <div class="flex flex-wrap gap-4 pt-4">
+                                    <a id="modal-demo" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md transition-colors">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                        </svg>
+                                        Ver Demo
+                                    </a>
+                                    <a id="modal-github" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-2 bg-gray-800 hover:bg-gray-900 text-white rounded-md transition-colors">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
                             </svg>
-                        </button> -->
-
-                        <!-- Indicadores do Carousel -->
-                        <!-- <div class="flex justify-center mt-6 space-x-2">
-                            <button class="w-2.5 h-2.5 rounded-full bg-indigo-600 dark:bg-indigo-500" data-index="0"></button>
-                            <button class="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-neutral-700" data-index="1"></button>
-                            <button class="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-neutral-700" data-index="2"></button>
+                                        Ver no GitHub
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </section> -->
+            </section>
+
+            <!-- Code Playground -->
+            <section id="code-playground" class="scroll-mt-24 py-16 md:py-20 bg-slate-200 dark:bg-neutral-900 rounded-xl shadow-sm fade-in-section">
+                <div class="max-w-5xl mx-auto px-6">
+                    <h2 class="text-3xl font-bold text-center text-slate-900 dark:text-white mb-8">Coding in the Wild</h2>
+                    <p class="text-center text-slate-600 dark:text-slate-400 mb-12 max-w-2xl mx-auto">Experimente editar o código abaixo e veja o resultado em tempo real</p>
+                    
+                    <div class="code-editor-container bg-white dark:bg-neutral-800 rounded-xl shadow-md overflow-hidden">
+                        <!-- Editor Tabs -->
+                        <div class="flex border-b border-gray-200 dark:border-gray-700">
+                            <button class="code-tab active px-4 py-2 font-medium" data-lang="html">HTML</button>
+                            <button class="code-tab px-4 py-2 font-medium" data-lang="css">CSS</button>
+                            <button class="code-tab px-4 py-2 font-medium" data-lang="js">JavaScript</button>
+                        </div>
+                        
+                        <!-- Editor Area -->
+                        <div class="flex flex-col md:flex-row">
+                            <!-- Code Input -->
+                            <div class="w-full md:w-1/2 border-r border-gray-200 dark:border-gray-700">
+                                <div id="editor-html" class="editor-pane active">
+                                    <div class="p-1 bg-slate-800 text-xs text-slate-400">HTML</div>
+                                    <textarea class="code-input w-full h-64 p-4 font-mono text-sm bg-slate-900 text-white focus:outline-none" spellcheck="false"><div class="card">
+  <h2>Edite-me!</h2>
+  <p>Este é um card interativo que você pode editar.</p>
+  <button id="demo-btn">Clique em mim</button>
+</div></textarea>
+                                </div>
+                                
+                                <div id="editor-css" class="editor-pane hidden">
+                                    <div class="p-1 bg-slate-800 text-xs text-slate-400">CSS</div>
+                                    <textarea class="code-input w-full h-64 p-4 font-mono text-sm bg-slate-900 text-white focus:outline-none" spellcheck="false">.card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.card h2 {
+  color: #4f46e5;
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: #4b5563;
+  margin-bottom: 20px;
+}
+
+.card button {
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.card button:hover {
+  background-color: #4338ca;
+}</textarea>
+                                </div>
+                                
+                                <div id="editor-js" class="editor-pane hidden">
+                                    <div class="p-1 bg-slate-800 text-xs text-slate-400">JavaScript</div>
+                                    <textarea class="code-input w-full h-64 p-4 font-mono text-sm bg-slate-900 text-white focus:outline-none" spellcheck="false">// Adicione interatividade ao botão
+document.getElementById('demo-btn').addEventListener('click', function() {
+  alert('Você clicou no botão!');
+  
+  // Mude a cor do título
+  const heading = document.querySelector('.card h2');
+  heading.style.color = getRandomColor();
+});
+
+// Função para gerar uma cor aleatória
+function getRandomColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}</textarea>
+                                </div>
+                            </div>
+                            
+                            <!-- Preview -->
+                            <div class="w-full md:w-1/2">
+                                <div class="p-1 bg-slate-800 text-xs text-slate-400">Resultado</div>
+                                <div id="code-preview" class="h-64 p-4 bg-white dark:bg-neutral-900 overflow-auto"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Controls -->
+                        <div class="p-4 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center">
+                            <div class="text-sm text-slate-600 dark:text-slate-400">Edite o código à esquerda para ver as mudanças</div>
+                            <button id="run-code" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md transition-colors">Executar</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Testimonials como Chat -->
+            <section id="testimonials" class="scroll-mt-24 py-16 md:py-20 bg-slate-200 dark:bg-neutral-900 rounded-xl shadow-sm fade-in-section">
+                <div class="max-w-4xl mx-auto px-6">
+                    <h2 class="text-3xl font-bold text-center text-slate-900 dark:text-white mb-8">O que dizem sobre mim</h2>
+                    <p class="text-center text-slate-600 dark:text-slate-400 mb-12 max-w-2xl mx-auto">Feedback de clientes e colegas de trabalho</p>
+                    
+                    <div class="chat-container bg-white dark:bg-neutral-800 rounded-xl shadow-md overflow-hidden">
+                        <!-- Chat Header -->
+                        <div class="chat-header bg-indigo-600 text-white p-4 flex items-center">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <div class="ml-4 font-medium">Feedback Chat</div>
+                        </div>
+                        
+                        <!-- Chat Messages -->
+                        <div id="chat-messages" class="chat-messages p-4 h-96 overflow-y-auto space-y-4">
+                            <!-- Mensagens serão adicionadas via JavaScript -->
+                        </div>
+                        
+                        <!-- Chat Input (fake) -->
+                        <div class="chat-input border-t border-gray-200 dark:border-gray-700 p-4 flex">
+                            <input type="text" placeholder="Envie uma mensagem..." class="flex-1 bg-slate-100 dark:bg-neutral-700 rounded-l-lg px-4 py-2 focus:outline-none text-slate-800 dark:text-white" disabled>
+                            <button class="bg-indigo-600 text-white px-4 py-2 rounded-r-lg">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             <!-- Orçamento -->
             <section id="orcamento" class="scroll-mt-24 py-16 md:py-20 bg-slate-200 dark:bg-neutral-900 rounded-xl shadow-sm fade-in-section">
@@ -311,18 +1165,86 @@
                 </div>
             </section>
 
-            <!-- Contato -->
-            <section id="contato" class="scroll-mt-24 py-16 md:py-20 bg-slate-200 dark:bg-neutral-900 rounded-xl shadow-sm fade-in-section">
-                <div class="max-w-2xl mx-auto px-6">
-                    <h2 class="text-3xl font-bold text-center text-slate-900 dark:text-white mb-10">Contato</h2>
-                    <div class="text-center space-y-6">
-                        <p class="text-slate-700 dark:text-gray-400">Fale comigo diretamente no WhatsApp.</p>
-                        <a href="https://wa.me/5514998811979?text=Ol%C3%A1%2C%20Gabriel!%20Vim%20pelo%20site." target="_blank" rel="noopener noreferrer"
-                           class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 rounded-md text-white bg-green-500 hover:bg-green-600 shadow-sm transition">
-                            <i class="fa-brands fa-whatsapp text-2xl" aria-hidden="true"></i>
-                            Iniciar conversa no WhatsApp
-                        </a>
-                        <p class="text-sm text-slate-600 dark:text-gray-400">Número: +55 (14) 99881-1979</p>
+            <!-- Contato - CTA Aprimorado -->
+            <section id="contato" class="scroll-mt-24 py-16 md:py-20 bg-gradient-to-br from-indigo-600 to-purple-700 dark:from-indigo-800 dark:to-purple-900 rounded-xl shadow-lg fade-in-section overflow-hidden relative">
+                <!-- Elementos decorativos de fundo -->
+                <div class="absolute inset-0 overflow-hidden opacity-10">
+                    <div class="absolute -top-24 -left-24 w-64 h-64 rounded-full bg-white"></div>
+                    <div class="absolute top-1/2 -right-32 w-96 h-96 rounded-full bg-white"></div>
+                    <div class="absolute -bottom-32 left-1/4 w-80 h-80 rounded-full bg-white"></div>
+                </div>
+                
+                <div class="max-w-4xl mx-auto px-6 relative z-10">
+                    <div class="text-center mb-12">
+                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Vamos Construir Algo Incrível Juntos!</h2>
+                        <p class="text-lg text-indigo-100 max-w-2xl mx-auto">Estou pronto para transformar suas ideias em realidade com soluções criativas e tecnologias modernas.</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <!-- Opções de contato -->
+                        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-8 text-white space-y-6 transform transition-transform hover:scale-105">
+                            <h3 class="text-2xl font-semibold mb-6">Entre em contato</h3>
+                            
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-brands fa-whatsapp text-2xl"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">WhatsApp</p>
+                                    <p class="text-indigo-100">+55 (14) 99881-1979</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-solid fa-envelope text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Email</p>
+                                    <p class="text-indigo-100">gabriel.damante@exemplo.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-brands fa-linkedin-in text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">LinkedIn</p>
+                                    <p class="text-indigo-100">linkedin.com/in/gabriel-damante</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Botões de ação -->
+                        <div class="flex flex-col space-y-4 items-center">
+                            <a href="https://wa.me/5514998811979?text=Ol%C3%A1%2C%20Gabriel!%20Gostaria%20de%20conversar%20sobre%20um%20projeto." 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               class="cta-pulse-button w-full sm:w-auto px-8 py-4 bg-white text-indigo-700 hover:bg-indigo-50 rounded-xl font-bold text-lg flex items-center justify-center gap-3 shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                                <i class="fa-brands fa-whatsapp text-2xl"></i>
+                                Iniciar conversa agora
+                                <div class="cta-pulse-effect"></div>
+                            </a>
+                            
+                            <a href="mailto:gabriel.damante@exemplo.com?subject=Projeto%20Web" 
+                               class="w-full sm:w-auto px-8 py-4 bg-transparent border-2 border-white text-white hover:bg-white/10 rounded-xl font-bold text-lg flex items-center justify-center gap-3 transition-all duration-300">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                Enviar email
+                            </a>
+                            
+                            <div class="flex justify-center space-x-4 mt-6">
+                                <a href="https://github.com/GabrielDamanteFrias" target="_blank" rel="noopener noreferrer" class="text-white hover:text-indigo-200 transition-colors">
+                                    <i class="fa-brands fa-github text-2xl"></i>
+                                </a>
+                                <a href="https://www.linkedin.com/in/gabriel-damante-31a193352" target="_blank" rel="noopener noreferrer" class="text-white hover:text-indigo-200 transition-colors">
+                                    <i class="fa-brands fa-linkedin text-2xl"></i>
+                                </a>
+                                <a href="https://www.instagram.com/damantefrias?igsh=Yzh0aDQd3h3eHI5&utm_source=gr" target="_blank" rel="noopener noreferrer" class="text-white hover:text-indigo-200 transition-colors">
+                                    <i class="fa-brands fa-instagram text-2xl"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
