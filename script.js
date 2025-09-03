@@ -4,12 +4,9 @@ function toggleTheme() {
     localStorage.theme = isDark ? 'dark' : 'light';
 }
 
-// Define o tema com base no localStorage ou preferência do sistema
-if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.documentElement.classList.add('dark');
-} else {
-    document.documentElement.classList.remove('dark');
-}
+// Sempre iniciar em dark mode
+document.documentElement.classList.add('dark');
+localStorage.theme = 'dark';
 
 
 // --- Menu Mobile ---

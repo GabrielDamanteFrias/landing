@@ -30,13 +30,27 @@
             transform: translateY(0);
         }
     </style>
+    <style>
+        /* Cores por skill: light (default) e dark (quando .dark no html/body) */
+        .skill-card { color: var(--skill-color-light); }
+        .dark .skill-card { color: var(--skill-color-dark); }
+
+        .skill-react { --skill-color-light: #1fb6f1; --skill-color-dark: #61DAFB; }
+        .skill-typescript { --skill-color-light: #2b6fb0; --skill-color-dark: #3178C6; }
+        .skill-javascript { --skill-color-light: #d6a700; --skill-color-dark: #F7DF1E; }
+        .skill-html { --skill-color-light: #cf3e1b; --skill-color-dark: #E34F26; }
+        .skill-css { --skill-color-light: #213aa8; --skill-color-dark: #264DE4; }
+        .skill-tailwind { --skill-color-light: #0891b2; --skill-color-dark: #06B6D4; }
+        .skill-next { --skill-color-light: #000000; --skill-color-dark: #ffffff; }
+        .skill-selenium { --skill-color-light: #2f8a1f; --skill-color-dark: #43B02A; }
+    </style>
 </head>
 <body class="bg-slate-100 text-slate-800 dark:bg-black dark:text-gray-200 transition-colors duration-300">
 
     <!-- Botão WhatsApp Flutuante -->
-    <a href="https://wa.me/5514998811979" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-3.5 rounded-full shadow-lg z-20 transition-transform hover:scale-110">
+    <a href="https://wa.me/5514998811979" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg z-20 transition-transform hover:scale-110 flex items-center justify-center">
         <span class="sr-only">WhatsApp</span>
-        <i class="fa-brands fa-whatsapp text-4xl" aria-hidden="true"></i>
+        <i class="fa-brands fa-whatsapp text-2xl" aria-hidden="true"></i>
     </a>
 
     <!-- Navegação -->
@@ -104,41 +118,46 @@
             <section id="habilidades" class="scroll-mt-24 py-16 md:py-20 bg-slate-200 dark:bg-neutral-900 rounded-xl shadow-sm fade-in-section">
                 <div class="max-w-5xl mx-auto px-6">
                     <h2 class="text-3xl font-bold text-center text-slate-900 dark:text-white mb-12">Habilidades</h2>
-                    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-6 text-center">
+                    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-6 text-center">
                         <!-- React Native -->
-                        <div class="bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
-                            <i class="devicon-react-original colored text-5xl"></i>
-                            <p class="font-semibold text-slate-800 dark:text-gray-200">React Native</p>
+                        <div class="skill-card skill-react bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
+                            <i class="devicon-react-original text-5xl"></i>
+                            <span class="mt-2 text-current text-sm font-semibold">React Native</span>
                         </div>
                         <!-- TypeScript -->
-                        <div class="bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
-                            <i class="devicon-typescript-plain colored text-5xl"></i>
-                            <p class="font-semibold text-slate-800 dark:text-gray-200">TypeScript</p>
+                        <div class="skill-card skill-typescript bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
+                            <i class="devicon-typescript-plain text-5xl"></i>
+                            <span class="mt-2 text-current text-sm font-semibold">TypeScript</span>
                         </div>
                         <!-- JavaScript -->
-                        <div class="bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
-                            <i class="devicon-javascript-plain colored text-5xl"></i>
-                            <p class="font-semibold text-slate-800 dark:text-gray-200">JavaScript</p>
+                        <div class="skill-card skill-javascript bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
+                            <i class="devicon-javascript-plain text-5xl"></i>
+                            <span class="mt-2 text-current text-sm font-semibold">JavaScript</span>
                         </div>
                         <!-- HTML -->
-                        <div class="bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
-                            <i class="devicon-html5-plain colored text-5xl"></i>
-                            <p class="font-semibold text-slate-800 dark:text-gray-200">HTML</p>
+                        <div class="skill-card skill-html bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
+                            <i class="devicon-html5-plain text-5xl"></i>
+                            <span class="mt-2 text-current text-sm font-semibold">HTML</span>
                         </div>
                         <!-- CSS -->
-                        <div class="bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
-                            <i class="devicon-css3-plain colored text-5xl"></i>
-                            <p class="font-semibold text-slate-800 dark:text-gray-200">CSS</p>
+                        <div class="skill-card skill-css bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
+                            <i class="devicon-css3-plain text-5xl"></i>
+                            <span class="mt-2 text-current text-sm font-semibold">CSS</span>
                         </div>
                         <!-- Tailwind -->
-                        <div class="bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
-                            <i class="devicon-tailwindcss-plain colored text-5xl"></i>
-                            <p class="font-semibold text-slate-800 dark:text-gray-200">Tailwind</p>
+                        <div class="skill-card skill-tailwind bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
+                            <i class="devicon-tailwindcss-plain text-5xl"></i>
+                            <span class="mt-2 text-current text-sm font-semibold">Tailwind</span>
+                        </div>
+                        <!-- Next.js -->
+                        <div class="skill-card skill-next bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
+                            <i class="devicon-nextjs-original text-5xl"></i>
+                            <span class="mt-2 text-current text-sm font-semibold">Next.js</span>
                         </div>
                         <!-- Selenium -->
-                        <div class="bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
-                            <i class="devicon-selenium-original colored text-5xl"></i>
-                            <p class="font-semibold text-slate-800 dark:text-gray-200">Selenium</p>
+                        <div class="skill-card skill-selenium bg-slate-300 dark:bg-neutral-800 p-6 rounded-lg shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center gap-3">
+                            <i class="devicon-selenium-original text-5xl"></i>
+                            <span class="mt-2 text-current text-sm font-semibold">Selenium</span>
                         </div>
                     </div>
                 </div>
@@ -312,17 +331,21 @@
         <!-- Rodapé -->
         <footer class="text-center py-8 mt-16 border-t border-slate-200 dark:border-neutral-800">
             <div class="flex justify-center items-center space-x-6">
-                <a href="#" class="text-slate-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-white">
+                <a href="https://github.com/GabrielDamanteFrias" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-white">
                     <span class="sr-only">GitHub</span>
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" />
                     </svg>
                 </a>
-                <a href="#" class="text-slate-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-white">
+                <a href="https://www.linkedin.com/in/gabriel-damante-31a193352" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-white">
                     <span class="sr-only">LinkedIn</span>
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                     </svg>
+                </a>
+                <a href="https://www.instagram.com/damantefrias?igsh=Yzh0aDQd3h3eHI5&utm_source=gr" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-white">
+                    <span class="sr-only">Instagram</span>
+                    <i class="fa-brands fa-instagram text-3xl" aria-hidden="true"></i>
                 </a>
             </div>
             <p class="mt-4 text-sm text-slate-500 dark:text-gray-400">&copy; 2025 Gabriel Damante Frias. Todos os direitos reservados.</p>
