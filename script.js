@@ -556,124 +556,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// --- Pixel Pet Mascot ---
-document.addEventListener('DOMContentLoaded', () => {
-    const pixelPet = document.getElementById('pixel-pet');
-    const petContainer = pixelPet.querySelector('.pixel-pet-container');
-    const petFace = pixelPet.querySelector('.pixel-pet-face');
-    const petEyes = pixelPet.querySelectorAll('.pixel-pet-eye');
-    const petMouth = pixelPet.querySelector('.pixel-pet-mouth');
-    const petSpeech = document.getElementById('pet-speech');
-    
-    if (!pixelPet || !petContainer) return;
-    
-    // Estados do mascote
-    const petStates = ['normal', 'happy', 'surprised', 'wink', 'floating'];
-    let currentState = 'normal';
-    let isSpeaking = false;
-    
-    // Função para mudar o estado do mascote
-    function changePetState(state) {
-        // Remove todas as classes de estado
-        petStates.forEach(s => {
-            petContainer.classList.remove(`pixel-pet-${s}`);
-        });
-        
-        // Adiciona a classe do novo estado
-        if (state !== 'normal') {
-            petContainer.classList.add(`pixel-pet-${state}`);
-        }
-        
-        currentState = state;
-    }
-    
-    // Função para fazer o mascote falar
-    function petSpeak(message, duration = 3000) {
-        if (isSpeaking) return;
-        
-        petSpeech.textContent = message;
-        petSpeech.classList.remove('hidden');
-        petSpeech.style.opacity = '1';
-        isSpeaking = true;
-        
-        setTimeout(() => {
-            petSpeech.style.opacity = '0';
-            setTimeout(() => {
-                petSpeech.classList.add('hidden');
-                isSpeaking = false;
-            }, 300);
-        }, duration);
-    }
-    
-    // Eventos para interagir com o mascote
-    pixelPet.addEventListener('click', () => {
-        // Cicla entre os estados
-        const nextStateIndex = (petStates.indexOf(currentState) + 1) % petStates.length;
-        const nextState = petStates[nextStateIndex];
-        changePetState(nextState);
-        
-        // Faz o mascote falar algo baseado no estado
-        const messages = {
-            normal: "Estou pronto para ajudar!",
-            happy: "Que bom ver você por aqui! :D",
-            surprised: "Uau! Que site incrível, não?",
-            wink: "Psiu! Contrate o Gabriel, ele é ótimo!",
-            floating: "Estou flutuando! Divertido, não?"
-        };
-        
-        petSpeak(messages[nextState]);
-    });
-    
-    // Mostra mensagem inicial após um tempo
-    setTimeout(() => {
-        petSpeak("Olá! Clique em mim para interagir!");
-    }, 3000);
-    
-    // Reage ao scroll da página
-    let lastScrollTop = 0;
-    window.addEventListener('scroll', () => {
-        const st = window.pageYOffset || document.documentElement.scrollTop;
-        
-        // Determina a direção do scroll
-        if (st > lastScrollTop && st > 300) {
-            // Scroll para baixo
-            if (currentState === 'normal' && !isSpeaking && Math.random() > 0.7) {
-                changePetState('surprised');
-                setTimeout(() => changePetState('normal'), 1000);
-            }
-        } else if (st < lastScrollTop) {
-            // Scroll para cima
-            if (currentState === 'normal' && !isSpeaking && Math.random() > 0.7) {
-                changePetState('happy');
-                setTimeout(() => changePetState('normal'), 1000);
-            }
-        }
-        
-        lastScrollTop = st <= 0 ? 0 : st;
-    }, false);
-    
-    // Reage quando o usuário ficar inativo
-    let inactivityTimer;
-    function resetInactivityTimer() {
-        clearTimeout(inactivityTimer);
-        inactivityTimer = setTimeout(() => {
-            if (!isSpeaking) {
-                changePetState('floating');
-                petSpeak("Ei! Ainda está aí? Vamos explorar mais!");
-                setTimeout(() => changePetState('normal'), 5000);
-            }
-        }, 30000); // 30 segundos de inatividade
-    }
-    
-    // Eventos para detectar atividade do usuário
-    ['mousemove', 'keydown', 'click', 'touchstart', 'scroll'].forEach(event => {
-        document.addEventListener(event, resetInactivityTimer);
-    });
-    
-    // Inicia o timer de inatividade
-    resetInactivityTimer();
-});
-
 // --- Timeline Horizontal Interativa ---
 document.addEventListener('DOMContentLoaded', () => {
     const timelineSlider = document.getElementById('timeline-slider');
@@ -800,3 +682,170 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicialização
     updateTimeline();
 });
+
+// --- Experiência - Cards Expansíveis ---
+function toggleExperience(cardType) {
+    const details = document.getElementById(`${cardType}-details`);
+    const arrow = document.getElementById(`${cardType}-arrow`);
+    const card = document.querySelector(`[data-card="${cardType}"]`);
+    
+    // Debug para verificar se os elementos estão sendo encontrados
+    console.log(`Toggling ${cardType}:`, { details, arrow, card });
+    
+    if (!details || !arrow || !card) {
+        console.error(`Elementos não encontrados para ${cardType}`);
+        return;
+    }
+    
+    if (details.classList.contains('hidden')) {
+        // Expandir apenas este card
+        details.classList.remove('hidden');
+        
+        // Força o reflow antes de aplicar as classes de animação
+        details.offsetHeight;
+        
+        details.classList.remove('opacity-0', 'translate-y-4');
+        details.classList.add('opacity-100', 'translate-y-0');
+        arrow.style.transform = 'rotate(180deg)';
+        
+        // Adicionar efeito de destaque específico para cada card
+        card.classList.add('ring-2');
+        if (cardType === 'frontend') {
+            card.classList.add('ring-indigo-300', 'dark:ring-indigo-700');
+        } else if (cardType === 'rpa') {
+            card.classList.add('ring-blue-300', 'dark:ring-blue-700');
+        }
+        
+        // Scroll suave após um pequeno delay
+        setTimeout(() => {
+            card.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center' 
+            });
+        }, 300);
+        
+    } else {
+        // Recolher apenas este card
+        details.classList.remove('opacity-100', 'translate-y-0');
+        details.classList.add('opacity-0', 'translate-y-4');
+        arrow.style.transform = 'rotate(0deg)';
+        
+        // Aguardar a animação completar antes de esconder
+        setTimeout(() => {
+            details.classList.add('hidden');
+        }, 500);
+        
+        // Remover efeito de destaque
+        card.classList.remove('ring-2', 'ring-indigo-300', 'dark:ring-indigo-700', 'ring-blue-300', 'dark:ring-blue-700');
+    }
+}
+
+// Adicionar event listeners individuais para cada card
+document.addEventListener('DOMContentLoaded', () => {
+    // Inicializar experiência cards
+    initializeExperienceCards();
+    
+    // Garantir que as partículas tenham delays diferentes
+    const particles = document.querySelectorAll('.particle');
+    particles.forEach((particle, index) => {
+        particle.style.setProperty('--delay', `${(index % 3) * 0.2}s`);
+    });
+});
+
+function initializeExperienceCards() {
+    // Event listeners específicos para cada card
+    const frontendCard = document.querySelector('[data-card="frontend"]');
+    const rpaCard = document.querySelector('[data-card="rpa"]');
+    
+    if (frontendCard) {
+        frontendCard.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleExperience('frontend');
+        });
+        
+        // Efeitos visuais para frontend
+        addCardEffects(frontendCard, 'frontend');
+    }
+    
+    if (rpaCard) {
+        rpaCard.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleExperience('rpa');
+        });
+        
+        // Efeitos visuais para rpa
+        addCardEffects(rpaCard, 'rpa');
+    }
+}
+
+function addCardEffects(card, cardType) {
+    // Efeito de ondulação no clique
+    card.addEventListener('click', function(e) {
+        const ripple = document.createElement('div');
+        const rect = card.getBoundingClientRect();
+        const size = 60;
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        // Cores diferentes para cada card
+        const color = cardType === 'frontend' 
+            ? 'rgba(99, 102, 241, 0.3)' 
+            : 'rgba(59, 130, 246, 0.3)';
+        
+        ripple.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            left: ${x}px;
+            top: ${y}px;
+            background: radial-gradient(circle, ${color} 0%, transparent 70%);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s ease-out;
+            pointer-events: none;
+            z-index: 1;
+        `;
+        
+        card.appendChild(ripple);
+        
+        // Remover o elemento após a animação
+        setTimeout(() => {
+            ripple.remove();
+        }, 600);
+    });
+    
+    // Efeito de brilho sutil no hover
+    card.addEventListener('mouseenter', function() {
+        const shadowColor = cardType === 'frontend' 
+            ? 'rgba(99, 102, 241, 0.1)' 
+            : 'rgba(59, 130, 246, 0.1)';
+        this.style.boxShadow = `0 20px 40px rgba(0, 0, 0, 0.1), 0 0 20px ${shadowColor}`;
+    });
+    
+    card.addEventListener('mouseleave', function() {
+        this.style.boxShadow = '';
+    });
+}
+
+// Adicionar animação CSS para o efeito ripple
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes ripple {
+        to {
+            transform: scale(4);
+            opacity: 0;
+        }
+    }
+    
+    .experience-card {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .particle {
+        animation-delay: var(--delay, 0s);
+    }
+`;
+document.head.appendChild(style);
