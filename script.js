@@ -706,7 +706,10 @@ function toggleExperience(cardType) {
         
         details.classList.remove('opacity-0', 'translate-y-4');
         details.classList.add('opacity-100', 'translate-y-0');
+        
+        // Animar a seta com transição suave
         arrow.style.transform = 'rotate(180deg)';
+        arrow.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
         
         // Adicionar efeito de destaque específico para cada card
         card.classList.add('ring-2');
@@ -725,18 +728,20 @@ function toggleExperience(cardType) {
         }, 300);
         
     } else {
-        // Recolher apenas este card
+        // Recolher apenas este card com animação suave
         details.classList.remove('opacity-100', 'translate-y-0');
         details.classList.add('opacity-0', 'translate-y-4');
-        arrow.style.transform = 'rotate(0deg)';
         
-        // Aguardar a animação completar antes de esconder
+        // Animar a seta com transição suave
+        arrow.style.transform = 'rotate(0deg)';
+        arrow.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        
+        // Aguardar a animação de opacity/transform completar antes de esconder
         setTimeout(() => {
             details.classList.add('hidden');
-        }, 500);
-        
-        // Remover efeito de destaque
-        card.classList.remove('ring-2', 'ring-indigo-300', 'dark:ring-indigo-700', 'ring-blue-300', 'dark:ring-blue-700');
+            // Remover efeito de destaque após a animação
+            card.classList.remove('ring-2', 'ring-indigo-300', 'dark:ring-indigo-700', 'ring-blue-300', 'dark:ring-blue-700');
+        }, 500); // Mantém o tempo igual ao CSS transition (duration-500)
     }
 }
 
