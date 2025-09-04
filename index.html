@@ -253,39 +253,309 @@
         }
         
         /* Experiência Cards - Altura Independente */
+        /* Experiência Cards - Altura Independente e Painel Expansível */
         .experience-card {
             height: auto !important;
             min-height: auto !important;
             align-self: start;
+            position: relative; /* necessário para posicionar o painel expansível */
+            overflow: visible; /* permitir que o painel apareça sem crescer a section */
         }
-        
+
         .experience-card .p-8 {
             height: auto;
         }
-        
+
         #experiencia .grid {
             align-items: start !important;
         }
+
+        /* Painel expansível (animável) - agora em fluxo normal para expandir a section */
+        .expansion-panel {
+            position: relative; /* fica no fluxo do documento, empurrando o conteúdo abaixo */
+            background: inherit;
+            color: inherit;
+            padding: 1rem 2rem 1.25rem 2rem;
+            border-top: 1px solid rgba(0,0,0,0.06);
+            box-shadow: 0 6px 18px rgba(2,6,23,0.06);
+            transform-origin: top center;
+            transform: translateY(6px);
+            opacity: 0;
+            max-height: 0; /* será animado dinamicamente via JS */
+            overflow: hidden;
+            transition: max-height 420ms cubic-bezier(0.22, 1, 0.36, 1),
+                        opacity 300ms ease, transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+            z-index: 1;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+
+        /* Quando o card tem a classe expanded aplicamos apenas estados visuais — a altura real é animada via JS */
+        .experience-card.expanded .expansion-panel {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .expansion-panel {
+                padding-left: 1rem;
+                padding-right: 1rem;
+                transform: translateY(6px);
+                box-shadow: none;
+            }
+        }
         
-        /* Efeitos para o menu de navegação */
+        /* Navbar Dinâmica e Inovadora */
         nav {
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 1000;
+            position: relative;
         }
         
-        nav.scrolled {
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            background-color: rgba(241, 245, 249, 0.9);
+        /* Estado inicial - navbar completa */
+        .navbar-full {
+            background: rgba(248, 250, 252, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
         }
         
-        .dark nav.scrolled {
-            background-color: rgba(0, 0, 0, 0.8);
+        .dark .navbar-full {
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 1px solid rgba(55, 65, 81, 0.3);
         }
         
-        /* Animações para botões */
-        .cta-button, .project-details-btn, #run-code, button[type="submit"] {
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        /* Estado scrolled - navbar compacta */
+        .navbar-compact {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            transform: translateY(0);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+        }
+        
+        .dark .navbar-compact {
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.3);
+        }
+        
+        /* Estado hidden - navbar escondida */
+        .navbar-hidden {
+            transform: translateY(-100%);
+        }
+        
+        /* Barra de progresso de leitura */
+        .reading-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
+            transform-origin: left;
+            transform: scaleX(0);
+            transition: transform 0.2s ease;
+        }
+        
+        /* Breadcrumb dinâmico */
+        .dynamic-breadcrumb {
+            font-size: 0.875rem;
+            color: rgba(99, 102, 241, 0.8);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            min-height: 1.5rem;
+        }
+        
+        .dark .dynamic-breadcrumb {
+            color: rgba(139, 92, 246, 0.9);
+        }
+        
+        /* Logo animado */
+        .logo-animated {
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-compact .logo-animated {
+            transform: scale(0.8);
+        }
+        
+        /* Menu items com efeitos avançados */
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::before {
+            width: 80%;
+        }
+        
+        .nav-link.active {
+            background: rgba(99, 102, 241, 0.1);
+            color: #6366f1;
+        }
+        
+        .dark .nav-link.active {
+            background: rgba(139, 92, 246, 0.15);
+            color: #a78bfa;
+        }
+        
+        /* Floating navbar para mobile */
+        .floating-nav {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 2rem;
+            padding: 0.75rem 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateX(-50%) translateY(100px);
+        }
+        
+        .floating-nav.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .dark .floating-nav {
+            background: rgba(0, 0, 0, 0.95);
+        }
+        
+        /* Efeitos de hover para botões */
+        .nav-button {
             position: relative;
             overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .nav-button:hover::before {
+            left: 100%;
+        }
+        
+        /* Efeitos adicionais e animações avançadas */
+        
+        /* Partículas de fundo na navbar compacta */
+        .navbar-compact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+            animation: particleFloat 8s ease-in-out infinite;
+        }
+        
+        @keyframes particleFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(1deg); }
+            66% { transform: translateY(5px) rotate(-1deg); }
+        }
+        
+        /* Efeito de ondas na barra de progresso */
+        .reading-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: wave 2s linear infinite;
+        }
+        
+        @keyframes wave {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* Efeito de brilho nos botões */
+        .nav-button:hover {
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+        
+        /* Efeito de morphing no logo */
+        .logo-animated:hover {
+            transform: scale(1.1) rotateY(5deg);
+            filter: drop-shadow(0 10px 20px rgba(99, 102, 241, 0.3));
+        }
+        
+        /* Animação de entrada para a navbar */
+        @keyframes navbarSlideIn {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .navbar-enter {
+            animation: navbarSlideIn 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        /* Efeito de glitch ocasional */
+        @keyframes glitch {
+            0%, 90%, 100% { transform: translate(0); }
+            10% { transform: translate(-1px, 1px); }
+            20% { transform: translate(1px, -1px); }
+            30% { transform: translate(-1px, -1px); }
+            40% { transform: translate(1px, 1px); }
+            50% { transform: translate(-1px, 1px); }
+            60% { transform: translate(1px, -1px); }
+            70% { transform: translate(-1px, -1px); }
+            80% { transform: translate(1px, 1px); }
+        }
+        
+        .dynamic-breadcrumb.glitch-effect {
+            animation: glitch 0.3s ease-in-out;
+        }
+        
+        /* Efeitos responsivos melhorados */
+        @media (max-width: 768px) {
+            .navbar-compact {
+                padding: 0.5rem 0;
+            }
+            
+            .logo-animated {
+                height: 3rem;
+            }
+            
+            .navbar-compact .logo-animated {
+                transform: scale(0.9);
+            }
         }
         
         .cta-button:hover, .project-details-btn:hover, #run-code:hover, button[type="submit"]:hover {
@@ -342,6 +612,19 @@
                 padding-right: 1.5rem;
             }
         }
+        /* Ajustes para tooltips de skills em mobile */
+        .skill-card { overflow: visible; }
+        .skill-tooltip {
+            max-width: calc(100vw - 2rem);
+            left: 50%;
+            transform: translate(-50%, -0.5rem) !important;
+            right: auto !important;
+            pointer-events: none; /* habilitado via JS quando visível */
+        }
+        .skill-tooltip .tooltip-arrow {
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+        }
     </style>
 </head>
 <body class="bg-slate-100 text-slate-800 dark:bg-black dark:text-gray-200 transition-colors duration-300">
@@ -352,43 +635,72 @@
         <i class="fa-brands fa-whatsapp text-2xl" aria-hidden="true"></i>
     </a>
 
-    <!-- Navegação -->
-    <nav class="sticky top-0 bg-slate-100/80 dark:bg-black/70 backdrop-blur-sm shadow-sm z-10">
-        <div class="container mx-auto px-3 sm:px-4 lg:px-6 py-3 flex justify-between items-center">
-            <a href="#home" class="flex items-center">
-                <img src="./assets/Logo.png" alt="Logo GDF" class="h-20">
-            </a>
-            <div class="hidden md:flex items-center space-x-6" id="desktop-menu">
-                <a href="#sobre" class="text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Sobre</a>
-                <a href="#habilidades" class="text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Habilidades</a>
-                <a href="#experiencia" class="text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Experiência</a>
-                <a href="#orcamento" class="text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Orçamento</a>
-                <a href="#contato" class="text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Contato</a>
-            </div>
-            <div class="flex items-center">
-                <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-neutral-800" aria-label="Alternar tema">
-                    <!-- Ícone de Sol -->
-                    <svg class="w-6 h-6 text-slate-700 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                    <!-- Ícone de Lua -->
-                    <svg class="w-6 h-6 text-slate-300 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                </button>
-                <!-- Botão Hamburger -->
-                <button id="mobile-menu-button" class="md:hidden p-2 ml-2 rounded-md hover:bg-slate-200 dark:hover:bg-neutral-800" aria-label="Abrir menu">
-                    <svg class="w-6 h-6 text-slate-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                </button>
+    <!-- Navegação Dinâmica e Inovadora -->
+    <nav id="navbar" class="sticky top-0 bg-slate-100/80 dark:bg-black/70 backdrop-blur-sm shadow-sm z-10 navbar-full">
+        <!-- Barra de progresso de leitura -->
+        <div id="reading-progress" class="reading-progress"></div>
+        
+        <div class="container mx-auto px-3 sm:px-4 lg:px-6 py-3">
+            <!-- Breadcrumb dinâmico -->
+            <div id="dynamic-breadcrumb" class="dynamic-breadcrumb text-center mb-2 hidden"></div>
+            
+            <div class="flex justify-between items-center">
+                <a href="#home" class="flex items-center">
+                    <img src="./assets/Logo.png" alt="Logo GDF" class="h-20 logo-animated">
+                </a>
+                
+                <div class="hidden md:flex items-center space-x-6" id="desktop-menu">
+                    <a href="#sobre" class="nav-link text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white" data-section="sobre">Sobre</a>
+                    <a href="#habilidades" class="nav-link text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white" data-section="habilidades">Habilidades</a>
+                    <a href="#experiencia" class="nav-link text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white" data-section="experiencia">Experiência</a>
+                    <a href="#orcamento" class="nav-link text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white" data-section="orcamento">Orçamento</a>
+                    <a href="#contato" class="nav-link text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white" data-section="contato">Contato</a>
+                </div>
+                
+                <div class="flex items-center">
+                    <button onclick="toggleTheme()" class="nav-button p-2 rounded-full hover:bg-slate-200 dark:hover:bg-neutral-800" aria-label="Alternar tema">
+                        <!-- Ícone de Sol -->
+                        <svg class="w-6 h-6 text-slate-700 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <!-- Ícone de Lua -->
+                        <svg class="w-6 h-6 text-slate-300 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+                    <!-- Botão Hamburger -->
+                    <button id="mobile-menu-button" class="nav-button md:hidden p-2 ml-2 rounded-md hover:bg-slate-200 dark:hover:bg-neutral-800" aria-label="Abrir menu">
+                        <svg class="w-6 h-6 text-slate-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
             </div>
         </div>
+        
         <!-- Menu Mobile -->
         <div id="mobile-menu" class="hidden md:hidden px-3 sm:px-4 lg:px-6 pb-4 space-y-2">
-            <a href="#sobre" class="block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Sobre</a>
-            <a href="#habilidades" class="block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Habilidades</a>
-            <a href="#experiencia" class="block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Experiência</a>
-            <a href="#orcamento" class="block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Orçamento</a>
-            <a href="#contato" class="block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white">Contato</a>
+            <a href="#sobre" class="nav-link block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white" data-section="sobre">Sobre</a>
+            <a href="#habilidades" class="nav-link block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white" data-section="habilidades">Habilidades</a>
+            <a href="#experiencia" class="nav-link block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white" data-section="experiencia">Experiência</a>
+            <a href="#orcamento" class="nav-link block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white" data-section="orcamento">Orçamento</a>
+            <a href="#contato" class="nav-link block text-slate-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white" data-section="contato">Contato</a>
         </div>
     </nav>
 
-    <div class="w-full overflow-x-hidden">
+    <!-- Floating Navigation (mobile) -->
+    <div id="floating-nav" class="floating-nav md:hidden">
+        <div class="flex items-center justify-center space-x-4">
+            <a href="#sobre" class="text-white/70 hover:text-white transition-colors">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+            </a>
+            <a href="#habilidades" class="text-white/70 hover:text-white transition-colors">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"></path></svg>
+            </a>
+            <a href="#experiencia" class="text-white/70 hover:text-white transition-colors">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h2zm4-1a1 1 0 00-1 1v1h2V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+            </a>
+            <a href="#contato" class="text-white/70 hover:text-white transition-colors">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+            </a>
+        </div>
+    </div>
+
+    <div class="w-full overflow-x-visible">
         <div class="container mx-auto px-3 sm:px-4 lg:px-6 py-8 md:py-12 max-w-7xl">
 
         <!-- Hero Section -->
@@ -671,7 +983,7 @@
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                         <!-- Desenvolvedor Front-End -->
-                        <div class="experience-card group relative bg-white dark:bg-neutral-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl cursor-pointer h-auto"
+                        <div class="experience-card group relative bg-white dark:bg-neutral-800 rounded-xl shadow-lg transform transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl cursor-pointer h-auto"
                              data-card="frontend">
                             
                             <div class="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
@@ -693,8 +1005,8 @@
                                 </div>
                                 <p class="text-slate-600 dark:text-slate-300 mb-4">Desenvolvimento de interfaces modernas e responsivas utilizando React, Next.js e TypeScript. Foco em performance e experiência do usuário.</p>
                                 
-                                <!-- Conteúdo expansível -->
-                                <div id="frontend-details" class="hidden opacity-0 transform translate-y-4 transition-all duration-500 ease-out">
+                                <!-- Conteúdo expansível (agora usa painel absoluto para animação suave) -->
+                                <div id="frontend-details" class="expansion-panel" aria-hidden="true">
                                     <div class="border-t border-indigo-200 dark:border-indigo-800 pt-4 mt-4">
                                         <h4 class="font-semibold text-slate-900 dark:text-white mb-3">Principais Responsabilidades:</h4>
                                         <ul class="space-y-2 text-slate-600 dark:text-slate-300 text-sm">
@@ -730,7 +1042,7 @@
                         </div>
 
                         <!-- Desenvolvedor RPA -->
-                        <div class="experience-card group relative bg-white dark:bg-neutral-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl cursor-pointer h-auto"
+                        <div class="experience-card group relative bg-white dark:bg-neutral-800 rounded-xl shadow-lg transform transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl cursor-pointer h-auto"
                              data-card="rpa">
                             
                             <div class="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
@@ -752,8 +1064,8 @@
                                 </div>
                                 <p class="text-slate-600 dark:text-slate-300 mb-4">Desenvolvimento de automações com Selenium e Python para otimizar processos e aumentar a produtividade da equipe.</p>
                                 
-                                <!-- Conteúdo expansível -->
-                                <div id="rpa-details" class="hidden opacity-0 transform translate-y-4 transition-all duration-500 ease-out">
+                                <!-- Conteúdo expansível (agora usa painel absoluto para animação suave) -->
+                                <div id="rpa-details" class="expansion-panel" aria-hidden="true">
                                     <div class="border-t border-blue-200 dark:border-blue-800 pt-4 mt-4">
                                         <h4 class="font-semibold text-slate-900 dark:text-white mb-3">Principais Realizações:</h4>
                                         <ul class="space-y-2 text-slate-600 dark:text-slate-300 text-sm">
@@ -792,121 +1104,13 @@
 
                     <!-- Cards de Serviços -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                        <!-- Card 1: Aplicativos Mobile -->
-                        <div class="service-card group bg-white dark:bg-neutral-800 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                            <div class="relative h-48 bg-gradient-to-br from-blue-500 to-purple-600 overflow-hidden">
-                                <div class="absolute inset-0 bg-black/20"></div>
-                                <div class="absolute top-6 left-6">
-                                    <div class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
-                                        <i class="fas fa-mobile-alt text-3xl text-white"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="p-8">
-                                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Aplicativos Mobile</h3>
-                                <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-                                    Desenvolvo aplicativos nativos para iOS e Android usando React Native, garantindo performance excepcional e experiência de usuário fluida.
-                                </p>
-                                
-                                <!-- Características principais -->
-                                <div class="space-y-3 mb-6">
-                                    <div class="flex items-center text-sm text-slate-700 dark:text-slate-300">
-                                        <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                                        <span>Interface nativa para iOS e Android</span>
-                                    </div>
-                                    <div class="flex items-center text-sm text-slate-700 dark:text-slate-300">
-                                        <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
-                                        <span>Integração com APIs e serviços externos</span>
-                                    </div>
-                                    <div class="flex items-center text-sm text-slate-700 dark:text-slate-300">
-                                        <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-                                        <span>Performance otimizada e offline-first</span>
-                                    </div>
-                                </div>
-
-                                <!-- Tecnologias -->
-                                <div class="flex flex-wrap gap-2 mb-6">
-                                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs font-medium">React Native</span>
-                                    <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-xs font-medium">TypeScript</span>
-                                    <span class="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-full text-xs font-medium">Firebase</span>
-                                </div>
-
-                                <!-- Preço e CTA -->
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="text-sm text-slate-500 dark:text-slate-400">A partir de</p>
-                                        <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">R$ 2.000</p>
-                                    </div>
-                                    <a href="https://wa.me/5514998811979?text=Olá! Gostaria de saber mais sobre desenvolvimento de aplicativos mobile." 
-                                       target="_blank" 
-                                       class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">
-                                        Solicitar
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 2: Websites -->
-                        <div class="service-card group bg-white dark:bg-neutral-800 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                            <div class="relative h-48 bg-gradient-to-br from-green-500 to-teal-600 overflow-hidden">
-                                <div class="absolute inset-0 bg-black/20"></div>
-                                <div class="absolute top-6 left-6">
-                                    <div class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
-                                        <i class="fas fa-laptop-code text-3xl text-white"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="p-8">
-                                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Websites Responsivos</h3>
-                                <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-                                    Crio sites modernos e responsivos que se adaptam perfeitamente a qualquer dispositivo, com foco em performance e SEO.
-                                </p>
-                                
-                                <!-- Características principais -->
-                                <div class="space-y-3 mb-6">
-                                    <div class="flex items-center text-sm text-slate-700 dark:text-slate-300">
-                                        <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-                                        <span>Design responsivo e moderno</span>
-                                    </div>
-                                    <div class="flex items-center text-sm text-slate-700 dark:text-slate-300">
-                                        <div class="w-2 h-2 bg-teal-500 rounded-full mr-3"></div>
-                                        <span>Otimização para motores de busca (SEO)</span>
-                                    </div>
-                                    <div class="flex items-center text-sm text-slate-700 dark:text-slate-300">
-                                        <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                                        <span>Carregamento ultra-rápido</span>
-                                    </div>
-                                </div>
-
-                                <!-- Tecnologias -->
-                                <div class="flex flex-wrap gap-2 mb-6">
-                                    <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs font-medium">React</span>
-                                    <span class="px-3 py-1 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-full text-xs font-medium">Next.js</span>
-                                    <span class="px-3 py-1 bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300 rounded-full text-xs font-medium">Tailwind</span>
-                                </div>
-
-                                <!-- Preço e CTA -->
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="text-sm text-slate-500 dark:text-slate-400">A partir de</p>
-                                        <p class="text-2xl font-bold text-green-600 dark:text-green-400">R$ 1.300</p>
-                                    </div>
-                                    <a href="https://wa.me/5514998811979?text=Olá! Gostaria de saber mais sobre desenvolvimento de websites." 
-                                       target="_blank" 
-                                       class="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors">
-                                        Solicitar
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
                         <!-- Card 3: Landing Pages -->
                         <div class="service-card group bg-white dark:bg-neutral-800 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                            <div class="relative h-48 bg-gradient-to-br from-orange-500 to-red-600 overflow-hidden">
+                            <div class="relative h-24 bg-gradient-to-br from-orange-500 to-red-600 overflow-hidden">
                                 <div class="absolute inset-0 bg-black/20"></div>
-                                <div class="absolute top-6 left-6">
-                                    <div class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
-                                        <i class="fas fa-rocket text-3xl text-white"></i>
+                                <div class="absolute top-4 left-4">
+                                    <div class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+                                        <i class="fas fa-rocket text-2xl text-white"></i>
                                     </div>
                                 </div>
                             </div>
@@ -956,11 +1160,11 @@
 
                         <!-- Card 4: Automação RPA -->
                         <div class="service-card group bg-white dark:bg-neutral-800 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                            <div class="relative h-48 bg-gradient-to-br from-purple-500 to-indigo-600 overflow-hidden">
+                            <div class="relative h-24 bg-gradient-to-br from-purple-500 to-indigo-600 overflow-hidden">
                                 <div class="absolute inset-0 bg-black/20"></div>
-                                <div class="absolute top-6 left-6">
-                                    <div class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
-                                        <i class="fas fa-robot text-3xl text-white"></i>
+                                <div class="absolute top-4 left-4">
+                                    <div class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+                                        <i class="fas fa-robot text-2xl text-white"></i>
                                     </div>
                                 </div>
                             </div>

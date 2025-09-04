@@ -8,15 +8,220 @@ function toggleTheme() {
 document.documentElement.classList.add('dark');
 localStorage.theme = 'dark';
 
-// --- Efeito de scroll na navegação ---
+// --- Navbar Dinâmica e Inovadora ---
+let lastScrollTop = 0;
+let scrollTimeout;
+let isScrollingDown = false;
+
+// Elementos da navbar
+const navbar = document.querySelector('#navbar');
+const readingProgress = document.querySelector('#reading-progress');
+const dynamicBreadcrumb = document.querySelector('#dynamic-breadcrumb');
+const floatingNav = document.querySelector('#floating-nav');
+const navLinks = document.querySelectorAll('.nav-link');
+
+// Configurações das seções da navbar
+const navSections = [
+    { id: 'home', name: 'Início', icon: '🏠' },
+    { id: 'sobre', name: 'Sobre Mim', icon: '👨‍💻' },
+    { id: 'habilidades', name: 'Habilidades', icon: '🚀' },
+    { id: 'experiencia', name: 'Experiência', icon: '💼' },
+    { id: 'orcamento', name: 'Orçamento', icon: '💰' },
+    { id: 'contato', name: 'Contato', icon: '📧' }
+];
+
+// Função principal de controle do scroll
 window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    if (window.scrollY > 50) {
-        nav.classList.add('scrolled');
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    
+    // Determinar direção do scroll
+    isScrollingDown = scrollTop > lastScrollTop;
+    
+    // 1. Controle de estado da navbar
+    if (scrollTop > 100) {
+        // Navbar compacta quando scrolla para baixo
+        navbar.classList.remove('navbar-full');
+        navbar.classList.add('navbar-compact');
+        
+        // Esconder navbar apenas quando scrolling para baixo rapidamente
+        if (isScrollingDown && scrollTop > lastScrollTop + 5) {
+            navbar.classList.add('navbar-hidden');
+        } else {
+            navbar.classList.remove('navbar-hidden');
+        }
     } else {
-        nav.classList.remove('scrolled');
+        // Navbar completa no topo
+        navbar.classList.remove('navbar-compact', 'navbar-hidden');
+        navbar.classList.add('navbar-full');
+    }
+    
+    // 2. Barra de progresso de leitura
+    const scrollProgress = (scrollTop / (documentHeight - windowHeight)) * 100;
+    readingProgress.style.transform = `scaleX(${scrollProgress / 100})`;
+    
+    // 3. Detectar seção ativa e atualizar breadcrumb
+    updateActiveSection(scrollTop);
+    
+    // 4. Controlar floating nav (mobile)
+    if (window.innerWidth < 768) {
+        if (scrollTop > 300) {
+            floatingNav.classList.add('show');
+        } else {
+            floatingNav.classList.remove('show');
+        }
+    }
+    
+    lastScrollTop = scrollTop;
+    
+    // Clear timeout para mostrar navbar quando parar de scrollar
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+        navbar.classList.remove('navbar-hidden');
+    }, 150);
+});
+
+// Função para atualizar seção ativa
+function updateActiveSection(scrollTop) {
+    const currentSection = getCurrentSection(scrollTop);
+    
+    // Atualizar links ativos
+    navLinks.forEach(link => {
+        const section = link.getAttribute('data-section');
+        if (section === currentSection.id) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+    
+    // Atualizar breadcrumb dinâmico
+    if (currentSection.id !== 'home') {
+        dynamicBreadcrumb.textContent = `${currentSection.icon} ${currentSection.name}`;
+        dynamicBreadcrumb.classList.remove('hidden');
+    } else {
+        dynamicBreadcrumb.classList.add('hidden');
+    }
+}
+
+// Função para determinar seção atual baseada no scroll
+function getCurrentSection(scrollTop) {
+    for (let i = navSections.length - 1; i >= 0; i--) {
+        const section = document.getElementById(navSections[i].id);
+        if (section) {
+            const sectionTop = section.offsetTop - 150; // Offset para navbar
+            if (scrollTop >= sectionTop) {
+                return navSections[i];
+            }
+        }
+    }
+    return navSections[0]; // Retorna 'home' por padrão
+}
+
+// Smooth scroll melhorado para links da navbar
+document.addEventListener('DOMContentLoaded', () => {
+    const allNavLinks = document.querySelectorAll('a[href^="#"]');
+    
+    allNavLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                // Fechar menu mobile se estiver aberto
+                const mobileMenu = document.getElementById('mobile-menu');
+                mobileMenu.classList.add('hidden');
+                
+                // Scroll suave com offset para navbar
+                const offsetTop = targetElement.offsetTop - 120;
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+                
+                // Adicionar efeito visual à seção alvo
+                targetElement.style.transform = 'scale(1.01)';
+                setTimeout(() => {
+                    targetElement.style.transform = 'scale(1)';
+                }, 200);
+            }
+        });
+    });
+});
+
+// --- Efeitos Especiais da Navbar ---
+
+// Efeito de glitch ocasional no breadcrumb
+setInterval(() => {
+    if (Math.random() < 0.1 && !dynamicBreadcrumb.classList.contains('hidden')) {
+        dynamicBreadcrumb.classList.add('glitch-effect');
+        setTimeout(() => {
+            dynamicBreadcrumb.classList.remove('glitch-effect');
+        }, 300);
+    }
+}, 10000);
+
+// Parallax suave na navbar
+let ticking = false;
+function updateNavbarParallax() {
+    const scrolled = window.pageYOffset;
+    const parallax = scrolled * 0.1;
+    
+    if (navbar.classList.contains('navbar-compact')) {
+        navbar.style.transform = `translateY(${parallax}px)`;
+    }
+    
+    ticking = false;
+}
+
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        requestAnimationFrame(updateNavbarParallax);
+        ticking = true;
     }
 });
+
+// Animação de entrada da navbar
+window.addEventListener('load', () => {
+    navbar.classList.add('navbar-enter');
+});
+
+// Easter egg: Shake animation quando clica múltiplas vezes no logo
+let logoClickCount = 0;
+let logoClickTimeout;
+
+document.querySelector('.logo-animated').addEventListener('click', (e) => {
+    e.preventDefault();
+    logoClickCount++;
+    
+    clearTimeout(logoClickTimeout);
+    logoClickTimeout = setTimeout(() => {
+        logoClickCount = 0;
+    }, 2000);
+    
+    if (logoClickCount >= 5) {
+        navbar.style.animation = 'shake 0.5s ease-in-out';
+        setTimeout(() => {
+            navbar.style.animation = '';
+        }, 500);
+        logoClickCount = 0;
+    }
+});
+
+// CSS para o shake animation
+const shakeStyle = document.createElement('style');
+shakeStyle.textContent = `
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+        20%, 40%, 60%, 80% { transform: translateX(2px); }
+    }
+`;
+document.head.appendChild(shakeStyle);
+
+// Ripple effect on navbar removed per request (kept other ripple usages elsewhere)
 
 
 // --- Menu Mobile ---
@@ -104,57 +309,215 @@ sections.forEach(section => {
 document.addEventListener('DOMContentLoaded', () => {
     const skillCards = document.querySelectorAll('.skill-card');
     let activeTooltip = null;
-    
-    // Função para mostrar tooltip
-    function showTooltip(tooltip) {
-        // Esconde qualquer tooltip ativo
-        if (activeTooltip) {
-            activeTooltip.classList.add('opacity-0', 'invisible');
+    let leaveTimer = null;
+
+    function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
+
+    function showTooltip(tooltip, card) {
+        // Se o card não estiver visível, não mostrar o tooltip
+        if (!isElementInViewport(card)) return;
+
+        if (activeTooltip && activeTooltip !== tooltip) {
+            hideTooltip(activeTooltip);
+        }
+        if (leaveTimer) { clearTimeout(leaveTimer); leaveTimer = null; }
+
+        // Guarda parent original e referência do card
+        if (!tooltip._originalParent) tooltip._originalParent = tooltip.parentElement;
+        tooltip._anchorCard = card;
+
+        document.body.appendChild(tooltip);
+        tooltip.style.position = 'fixed';
+        tooltip.style.pointerEvents = 'auto';
+        tooltip.classList.remove('opacity-0', 'invisible');
+        
+        // Force reflow para garantir que as dimensões estejam corretas
+        tooltip.offsetHeight;
+        
+        // Calcular posição
+        const rect = card.getBoundingClientRect();
+        const tooltipHeight = tooltip.offsetHeight;
+        const tooltipWidth = tooltip.offsetWidth;
+        const halfWidth = tooltipWidth / 2;
+        const centerX = rect.left + rect.width / 2;
+        const viewportHeight = window.innerHeight;
+        
+        // Verificar espaço disponível acima e abaixo
+        const spaceAbove = rect.top;
+        const spaceBelow = viewportHeight - rect.bottom;
+        let top;
+        let isAbove;
+        
+        // Decidir posição baseado no espaço disponível
+        if (spaceAbove >= tooltipHeight + 8 || spaceAbove > spaceBelow) {
+            top = rect.top - tooltipHeight - 8;
+            isAbove = true;
+        } else {
+            top = rect.bottom + 8;
+            isAbove = false;
         }
         
-        // Mostra o novo tooltip
-        tooltip.classList.remove('opacity-0', 'invisible');
+        // Ajustar posição horizontal para não sair da tela
+        let left = centerX;
+        const minLeft = 8 + halfWidth;
+        const maxLeft = window.innerWidth - 8 - halfWidth;
+        if (left < minLeft) left = minLeft;
+        if (left > maxLeft) left = maxLeft;
+
+        // Aplicar posição
+        tooltip.style.left = `${left}px`;
+        tooltip.style.top = `${top}px`;
+        tooltip.style.transform = 'translate(-50%, 0)';
+        tooltip.style.zIndex = '9999';
+
+        // Ajustar seta
+        const arrow = tooltip.querySelector('.tooltip-arrow');
+        if (arrow) {
+            // Rotacionar seta baseado na posição
+            arrow.style.transform = isAbove ? 'translateX(-50%) rotate(180deg)' : 'translateX(-50%)';
+            arrow.style.top = isAbove ? 'auto' : '-8px';
+            arrow.style.bottom = isAbove ? '-8px' : 'auto';
+            arrow.style.left = '50%';
+        }
+
         activeTooltip = tooltip;
     }
-    
-    // Função para esconder tooltip
+
     function hideTooltip(tooltip) {
+        if (!tooltip) return;
         tooltip.classList.add('opacity-0', 'invisible');
-        if (activeTooltip === tooltip) {
-            activeTooltip = null;
+        tooltip.style.pointerEvents = 'none';
+
+        // Restaurar para a posição original
+        if (tooltip._originalParent && tooltip._originalParent.appendChild) {
+            tooltip._originalParent.appendChild(tooltip);
+            tooltip.style.position = '';
+            tooltip.style.left = '';
+            tooltip.style.top = '';
+            tooltip.style.transform = '';
+            tooltip.style.zIndex = '';
+            
+            const arrow = tooltip.querySelector('.tooltip-arrow');
+            if (arrow) {
+                arrow.style.transform = '';
+                arrow.style.top = '';
+                arrow.style.bottom = '';
+            }
+        }
+
+        tooltip._anchorCard = null;
+        if (activeTooltip === tooltip) activeTooltip = null;
+    }
+
+    function updateTooltipPosition(tooltip) {
+        if (!tooltip || !tooltip._anchorCard) return;
+        const card = tooltip._anchorCard;
+
+        // Se o card não estiver mais visível, esconder o tooltip
+        if (!isElementInViewport(card)) {
+            hideTooltip(tooltip);
+            return;
+        }
+
+        const rect = card.getBoundingClientRect();
+
+        // Calcular posição
+        const tooltipHeight = tooltip.offsetHeight;
+        const tooltipWidth = tooltip.offsetWidth;
+        const halfWidth = tooltipWidth / 2;
+        const centerX = rect.left + rect.width / 2;
+        const viewportHeight = window.innerHeight;
+        
+        // Verificar espaço disponível acima e abaixo
+        const spaceAbove = rect.top;
+        const spaceBelow = viewportHeight - rect.bottom;
+        let top;
+        let isAbove;
+        
+        // Decidir posição baseado no espaço disponível
+        if (spaceAbove >= tooltipHeight + 8 || spaceAbove > spaceBelow) {
+            top = rect.top - tooltipHeight - 8;
+            isAbove = true;
+        } else {
+            top = rect.bottom + 8;
+            isAbove = false;
+        }
+        
+        // Ajustar posição horizontal para não sair da tela
+        let left = centerX;
+        const minLeft = 8 + halfWidth;
+        const maxLeft = window.innerWidth - 8 - halfWidth;
+        if (left < minLeft) left = minLeft;
+        if (left > maxLeft) left = maxLeft;
+
+        // Aplicar posição
+        tooltip.style.left = `${left}px`;
+        tooltip.style.top = `${top}px`;
+        tooltip.style.transform = 'translate(-50%, 0)';
+        tooltip.style.zIndex = '9999';
+
+        // Ajustar seta
+        const arrow = tooltip.querySelector('.tooltip-arrow');
+        if (arrow) {
+            // Rotacionar seta baseado na posição
+            arrow.style.transform = isAbove ? 'translateX(-50%) rotate(180deg)' : 'translateX(-50%)';
+            arrow.style.top = isAbove ? 'auto' : '-8px';
+            arrow.style.bottom = isAbove ? '-8px' : 'auto';
+            arrow.style.left = '50%';
         }
     }
-    
-    // Adiciona eventos para cada skill card
+
+    // Atualizar durante scroll com requestAnimationFrame
+    let scrollRaf = null;
+    window.addEventListener('scroll', () => {
+        if (scrollRaf) return;
+        scrollRaf = requestAnimationFrame(() => {
+            if (activeTooltip) updateTooltipPosition(activeTooltip);
+            scrollRaf = null;
+        });
+    }, { passive: true });
+
+    // Atualizar ao redimensionar
+    window.addEventListener('resize', () => {
+        if (activeTooltip) updateTooltipPosition(activeTooltip);
+    });
+
+    // Setup dos eventos para cada card
     skillCards.forEach(card => {
         const tooltip = card.querySelector('.skill-tooltip');
-        
-        // Evento de clique para dispositivos móveis e desktop
+        if (!tooltip) return;
+
         card.addEventListener('click', (e) => {
             e.stopPropagation();
-            
             if (tooltip.classList.contains('opacity-0')) {
-                showTooltip(tooltip);
+                showTooltip(tooltip, card);
             } else {
                 hideTooltip(tooltip);
             }
         });
-        
-        // Eventos de mouse para desktop
+
         card.addEventListener('mouseenter', () => {
-            showTooltip(tooltip);
+            if (leaveTimer) { clearTimeout(leaveTimer); leaveTimer = null; }
+            showTooltip(tooltip, card);
         });
-        
+
         card.addEventListener('mouseleave', () => {
-            hideTooltip(tooltip);
+            leaveTimer = setTimeout(() => hideTooltip(tooltip), 120);
         });
+
+        tooltip.addEventListener('click', (ev) => ev.stopPropagation());
     });
 
-    // Fecha tooltip ao clicar fora
     document.addEventListener('click', () => {
-        if (activeTooltip) {
-            hideTooltip(activeTooltip);
-        }
+        if (activeTooltip) hideTooltip(activeTooltip);
     });
 });
 
@@ -697,20 +1060,48 @@ function toggleExperience(cardType) {
         return;
     }
     
-    if (details.classList.contains('hidden')) {
-        // Expandir apenas este card
-        details.classList.remove('hidden');
-        
-        // Força o reflow antes de aplicar as classes de animação
-        details.offsetHeight;
-        
-        details.classList.remove('opacity-0', 'translate-y-4');
-        details.classList.add('opacity-100', 'translate-y-0');
-        
+    const isExpanded = card.classList.contains('expanded');
+
+    if (!isExpanded) {
+        // Fecha outros cards abertos para evitar sobreposição estranha
+        document.querySelectorAll('.experience-card.expanded').forEach(openCard => {
+            openCard.classList.remove('expanded');
+            const openType = openCard.getAttribute('data-card');
+            const openArrow = document.getElementById(`${openType}-arrow`);
+            if (openArrow) {
+                openArrow.style.transform = 'rotate(0deg)';
+                openArrow.style.transition = 'transform 380ms cubic-bezier(0.22, 1, 0.36, 1)';
+            }
+            openCard.classList.remove('ring-2', 'ring-indigo-300', 'dark:ring-indigo-700', 'ring-blue-300', 'dark:ring-blue-700');
+            const openDetails = document.getElementById(`${openType}-details`);
+            if (openDetails) {
+                openDetails.setAttribute('aria-hidden', 'true');
+                // Colapsa a altura e limpa o estilo após a transição para permitir recálculo futuro
+                openDetails.style.maxHeight = '0px';
+                setTimeout(() => {
+                    // Só limpa se ainda estiver colapsado
+                    if (!openCard.classList.contains('expanded')) {
+                        openDetails.style.maxHeight = '';
+                    }
+                }, 480);
+            }
+        });
+
+    // Expandir este card
+    card.classList.add('expanded');
+    details.setAttribute('aria-hidden', 'false');
+
+    // Garantir que a transição de maxHeight ocorra: forçar maxHeight 0 -> reflow -> set para scrollHeight
+    details.style.maxHeight = '0px';
+    // Forçar reflow
+    details.offsetHeight;
+    // Animar a altura dinamicamente para o valor real do conteúdo
+    details.style.maxHeight = details.scrollHeight + 'px';
+
         // Animar a seta com transição suave
         arrow.style.transform = 'rotate(180deg)';
-        arrow.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-        
+        arrow.style.transition = 'transform 380ms cubic-bezier(0.22, 1, 0.36, 1)';
+
         // Adicionar efeito de destaque específico para cada card
         card.classList.add('ring-2');
         if (cardType === 'frontend') {
@@ -718,44 +1109,56 @@ function toggleExperience(cardType) {
         } else if (cardType === 'rpa') {
             card.classList.add('ring-blue-300', 'dark:ring-blue-700');
         }
-        
-        // Scroll suave após um pequeno delay
+
+        // Suave scroll para trazer o card ao centro da viewport sem provocar reflow na section
         setTimeout(() => {
-            card.scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'center' 
-            });
-        }, 300);
-        
+            const rect = card.getBoundingClientRect();
+            const absoluteTop = window.pageYOffset + rect.top;
+            const target = Math.max(absoluteTop - (window.innerHeight / 2) + (rect.height / 2), 0);
+            window.scrollTo({ top: target, behavior: 'smooth' });
+        }, 220);
+
     } else {
-        // Recolher apenas este card com animação suave
-        details.classList.remove('opacity-100', 'translate-y-0');
-        details.classList.add('opacity-0', 'translate-y-4');
-        
+    // Recolher este card
+    card.classList.remove('expanded');
+    details.setAttribute('aria-hidden', 'true');
+
+        // Animar recolhimento definindo maxHeight = 0
+        details.style.maxHeight = '0px';
+        // Limpar estilo inline após a transição para manter o fluxo natural
+        setTimeout(() => {
+            if (!card.classList.contains('expanded')) details.style.maxHeight = '';
+        }, 480);
+
         // Animar a seta com transição suave
         arrow.style.transform = 'rotate(0deg)';
-        arrow.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-        
-        // Aguardar a animação de opacity/transform completar antes de esconder
+        arrow.style.transition = 'transform 320ms cubic-bezier(0.22, 1, 0.36, 1)';
+
+        // Remover efeito de destaque após a transição
         setTimeout(() => {
-            details.classList.add('hidden');
-            // Remover efeito de destaque após a animação
             card.classList.remove('ring-2', 'ring-indigo-300', 'dark:ring-indigo-700', 'ring-blue-300', 'dark:ring-blue-700');
-        }, 500); // Mantém o tempo igual ao CSS transition (duration-500)
+        }, 340);
     }
 }
 
 // Adicionar event listeners individuais para cada card
-document.addEventListener('DOMContentLoaded', () => {
+function setupExperienceOnReady() {
     // Inicializar experiência cards
     initializeExperienceCards();
-    
+
     // Garantir que as partículas tenham delays diferentes
     const particles = document.querySelectorAll('.particle');
     particles.forEach((particle, index) => {
         particle.style.setProperty('--delay', `${(index % 3) * 0.2}s`);
     });
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupExperienceOnReady);
+} else {
+    // Se o DOM já estiver carregado, inicializa imediatamente
+    setupExperienceOnReady();
+}
 
 function initializeExperienceCards() {
     // Event listeners específicos para cada card
@@ -844,9 +1247,9 @@ style.textContent = `
         }
     }
     
-    .experience-card {
-        position: relative;
-        overflow: hidden;
+    /* Chevron rotation transition (fallback) */
+    .experience-card i.fas.fa-chevron-down {
+        transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
     }
     
     .particle {
